@@ -1,0 +1,894 @@
+<!-- AA Worldclass Superior Portal v2.0 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>A&A Worldclass Superior — Student Portal</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Alice&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0F1C3F;--navy2:#152040;--navy3:#1E2F5A;--navy4:#253570;
+  --gold:#C9A84C;--gold-light:#E2C97E;
+  --white:#FFFFFF;--off:#F8F6F0;--light:#EEF0F7;
+  --muted:#8A95B0;--muted2:#6B7894;--border:rgba(15,28,63,0.1);
+  --green:#1E7A4A;--green-bg:#E6F4ED;--green-text:#145A35;
+  --amber:#9A6200;--amber-bg:#FEF3DC;--amber-text:#7A4A06;
+  --red:#B91C1C;--red-bg:#FEE2E2;--red-text:#7F1D1D;
+}
+/* UNIFIED TOP NAV */
+.top-nav{background:var(--navy);padding:0 1.8rem;height:52px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(201,168,76,0.25);position:sticky;top:0;z-index:200}
+.top-nav-logo{font-family:'Inter',sans-serif;font-size:1rem;font-weight:400;color:var(--gold);text-decoration:none;letter-spacing:0.03em}
+.top-nav-logo span{color:rgba(255,255,255,0.5);font-size:0.7rem;margin-left:0.5rem;font-family:'Inter',sans-serif;letter-spacing:0.1em;text-transform:uppercase;vertical-align:middle}
+.top-nav-links{display:flex;align-items:center;gap:0.2rem}
+.top-nav-links a{color:rgba(255,255,255,0.45);font-size:0.7rem;text-decoration:none;letter-spacing:0.12em;text-transform:uppercase;font-family:'Inter',sans-serif;padding:0.35rem 0.75rem;border-radius:3px;transition:all 0.2s}
+.top-nav-links a:hover{color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.05)}
+.top-nav-links a.active{color:var(--gold);background:rgba(201,168,76,0.1)}
+.top-nav-links .nav-divider{width:1px;height:18px;background:rgba(255,255,255,0.1);margin:0 0.3rem}
+body{background:var(--light);color:var(--navy);font-family:'Inter',sans-serif;min-height:100vh}
+
+/* TOP NAV */
+.top-nav a{color:var(--gold);font-size:0.85rem;font-weight:700;text-decoration:none;letter-spacing:0.05em}
+.top-nav-links a{color:rgba(255,255,255,0.5);font-size:0.75rem;text-decoration:none;letter-spacing:0.1em;text-transform:uppercase}
+.top-nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px}
+
+/* PORTAL LAYOUT */
+.portal{display:flex;min-height:calc(100vh - 40px)}
+.sidebar{width:200px;min-width:200px;background:var(--navy);display:flex;flex-direction:column;position:fixed;top:40px;left:0;height:calc(100vh - 40px)}
+.sb-logo{padding:1.2rem;border-bottom:1px solid rgba(255,255,255,0.07)}
+.sb-logo .name{font-size:0.95rem;font-weight:400;color:var(--gold);font-family:'Alice',serif}
+.sb-logo .sub{font-size:0.6rem;color:rgba(255,255,255,0.35);letter-spacing:0.18em;text-transform:uppercase;margin-top:2px}
+.nav-item{display:flex;align-items:center;gap:8px;padding:0.62rem 1.2rem;cursor:pointer;font-size:0.76rem;color:rgba(255,255,255,0.55);border-left:2px solid transparent;transition:all 0.2s}
+.nav-item:hover{color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.04)}
+.nav-item.active{color:var(--gold);border-left-color:var(--gold);background:rgba(201,168,76,0.08)}
+.nav-item i{font-size:15px}
+.sb-user{margin-top:auto;padding:1rem 1.2rem;border-top:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:8px}
+.u-av{width:30px;height:30px;border-radius:50%;background:rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:var(--gold)}
+.u-name{font-size:0.76rem;color:rgba(255,255,255,0.8)}
+.u-role{font-size:0.62rem;color:rgba(255,255,255,0.4)}
+.sb-logout{padding:0.6rem 1.2rem;cursor:pointer;font-size:0.72rem;color:rgba(255,100,100,0.7);display:flex;align-items:center;gap:8px;border-top:1px solid rgba(255,255,255,0.07)}
+.sb-logout:hover{color:#ff6b6b}
+
+.main{margin-left:200px;flex:1;display:flex;flex-direction:column}
+.topbar{background:var(--white);padding:0.85rem 1.4rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:40px;z-index:10}
+.pg-title{font-size:0.88rem;font-weight:700;color:var(--navy)}
+.content{padding:1.2rem}
+.page{display:none}.page.active{display:block}
+
+/* CARDS & METRICS */
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.2rem}
+.metric{background:var(--white);border:1px solid var(--border);padding:0.9rem 1rem;border-radius:6px}
+.m-lbl{font-size:0.6rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:5px}
+.m-val{font-size:1.25rem;font-weight:700;color:var(--navy)}
+.m-sub{font-size:0.63rem;margin-top:3px;color:var(--green)}
+.m-warn{font-size:0.63rem;margin-top:3px;color:var(--amber)}
+.card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:1rem;margin-bottom:1rem}
+.card-hd{font-size:0.72rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.85rem;display:flex;align-items:center;justify-content:space-between}
+.card-hd span{font-size:0.68rem;color:var(--gold);cursor:pointer;font-weight:400;text-transform:none;letter-spacing:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.row{display:flex;align-items:center;justify-content:space-between;padding:0.55rem 0;border-bottom:1px solid rgba(15,28,63,0.05)}
+.row:last-child{border:none;padding-bottom:0}.row:first-child{padding-top:0}
+.rt{font-size:0.78rem;font-weight:500;color:var(--navy)}
+.rm{font-size:0.68rem;color:var(--muted);margin-top:2px}
+.pill{font-size:0.58rem;padding:2px 7px;border-radius:3px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase}
+.p-ok{background:var(--green-bg);color:var(--green-text)}
+.p-warn{background:var(--amber-bg);color:var(--amber-text)}
+.p-red{background:var(--red-bg);color:var(--red-text)}
+.p-gray{background:var(--light);color:var(--muted2)}
+.btn{font-size:0.72rem;padding:0.38rem 0.9rem;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--navy);font-family:inherit;transition:all 0.2s;font-weight:500}
+.btn:hover{border-color:var(--navy4);background:var(--off)}
+.btn.gold{background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:700}
+.btn.gold:hover{background:var(--gold-light)}
+.btn.sm{font-size:0.63rem;padding:0.25rem 0.65rem}
+.btn.red{background:var(--red-bg);color:var(--red-text);border-color:rgba(185,28,28,0.2)}
+
+/* CALENDAR */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:0.8rem}
+.cal-dh{font-size:0.6rem;color:var(--muted);text-align:center;padding:3px;text-transform:uppercase}
+.cal-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:0.72rem;color:var(--muted);border-radius:4px;cursor:pointer;border:1px solid transparent;transition:all 0.18s}
+.cal-cell:hover{border-color:var(--border);color:var(--navy)}
+.cal-cell.has{color:var(--gold);border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.07)}
+.cal-cell.today{background:var(--navy);color:white;font-weight:700}
+.cal-cell.sel{background:rgba(201,168,76,0.15);border-color:var(--gold);color:var(--navy);font-weight:700}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:0.8rem}
+.slot{padding:0.38rem;text-align:center;border-radius:4px;cursor:pointer;font-size:0.7rem;border:1px solid var(--border);color:var(--muted);transition:all 0.18s}
+.slot:hover{border-color:var(--navy4);color:var(--navy)}
+.slot.taken{opacity:0.3;cursor:not-allowed;text-decoration:line-through;pointer-events:none}
+.slot.sel{border-color:var(--gold);background:rgba(201,168,76,0.1);color:var(--navy);font-weight:600}
+
+/* PAYMENT */
+.pay-method{display:flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:5px;padding:0.8rem;cursor:pointer;transition:all 0.2s;margin-bottom:8px}
+.pay-method:hover{border-color:var(--navy4)}
+.pay-method.sel{border-color:var(--gold);background:rgba(201,168,76,0.05)}
+.radio{width:13px;height:13px;border-radius:50%;border:1px solid var(--muted);margin-left:auto;display:flex;align-items:center;justify-content:center}
+.radio.on::after{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold)}
+
+/* RECEIPT */
+.receipt-box{background:var(--off);border:1px solid var(--border);border-radius:6px;padding:1.3rem}
+.r-row{display:flex;justify-content:space-between;font-size:0.78rem;padding:0.32rem 0;border-bottom:1px solid rgba(15,28,63,0.05)}
+.r-row:last-child{border:none}
+.r-row.total{font-weight:700;font-size:0.9rem;border-top:1px solid var(--border);padding-top:0.55rem;margin-top:4px}
+.r-lbl{color:var(--muted)}
+
+/* SHOP */
+.shop-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.shop-card{background:var(--white);border:1px solid var(--border);border-radius:6px;overflow:hidden;cursor:pointer;transition:border-color 0.2s}
+.shop-card:hover{border-color:var(--navy4)}
+.shop-img{height:80px;background:var(--light);display:flex;align-items:center;justify-content:center;font-size:2.2rem}
+.shop-body{padding:0.7rem}
+.shop-name{font-size:0.76rem;font-weight:700;color:var(--navy);margin-bottom:2px}
+.shop-desc{font-size:0.65rem;color:var(--muted);line-height:1.5;margin-bottom:7px}
+.shop-foot{display:flex;align-items:center;justify-content:space-between}
+.shop-price{font-size:0.85rem;font-weight:700;color:var(--navy4)}
+
+/* ALERT */
+.alert{border-radius:5px;padding:0.8rem 1rem;display:flex;align-items:center;gap:9px;margin-bottom:1rem;font-size:0.78rem}
+.alert.success{background:var(--green-bg);border:1px solid #5DCAA5;color:var(--green-text)}
+.alert.error{background:var(--red-bg);border:1px solid #F09595;color:var(--red-text)}
+.alert.info{background:#EFF6FF;border:1px solid #85B7EB;color:#1E3A8A}
+
+/* FORM */
+.f-lbl{font-size:0.62rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;display:block;margin-top:0.7rem}
+.f-in{width:100%;border:1px solid var(--border);color:var(--navy);padding:0.55rem 0.75rem;border-radius:4px;font-family:inherit;font-size:0.82rem;outline:none;margin-bottom:0.2rem;transition:border-color 0.2s;background:var(--white)}
+.f-in:focus{border-color:var(--navy4)}
+.f-sel{width:100%;border:1px solid var(--border);color:var(--navy);padding:0.55rem 0.75rem;border-radius:4px;font-family:inherit;font-size:0.82rem;outline:none;background:var(--white)}
+.divider{height:1px;background:var(--border);margin:1rem 0}
+
+/* LOGIN */
+.login-wrap{min-height:calc(100vh - 40px);background:var(--light);display:flex;align-items:center;justify-content:center}
+.login-box{width:340px;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:2.2rem;box-shadow:0 4px 24px rgba(15,28,63,0.08)}
+.login-brand .name{font-size:1.1rem;font-weight:700;color:var(--navy);text-align:center}
+.login-brand .sub{font-size:0.62rem;color:var(--muted);letter-spacing:0.18em;text-transform:uppercase;text-align:center;margin-top:3px;margin-bottom:1.5rem}
+.login-tabs{display:flex;border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:1.3rem}
+.l-tab{flex:1;padding:0.45rem;text-align:center;font-size:0.7rem;cursor:pointer;color:var(--muted);transition:all 0.2s}
+.l-tab.on{background:var(--navy);color:var(--gold);font-weight:700}
+
+/* LOADING */
+.loading{display:flex;align-items:center;justify-content:center;padding:3rem;flex-direction:column;gap:1rem}
+.spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.hidden{display:none}
+.text-muted{font-size:0.72rem;color:var(--muted);text-align:center}
+.text-gold{color:var(--gold);cursor:pointer}
+
+/* Alice font for portal UI */
+.card-hd,.pg-title,.m-val,.nav-item,.nav-section,.section-title-portal,
+.modal-hd,.page-label,.sb-logo .name,.sb-brand,.u-name,.av-name{
+  font-family:'Alice',serif !important;
+}
+.pg-title{font-family:'Alice',serif !important;font-size:0.95rem}
+.card-hd{font-family:'Alice',serif !important}
+.m-val{font-family:'Alice',serif !important}
+.modal-hd{font-family:'Alice',serif !important}
+
+/* ELEGANT BACKGROUND THEME */
+body{background:linear-gradient(135deg,#F5F0E8 0%,#EDE8DC 50%,#F0EBE0 100%) !important;background-attachment:fixed !important}
+
+/* Warm cream cards with gold top border */
+.card{background:#FFFDF8 !important;border:1px solid rgba(201,168,76,0.2) !important;border-top:2px solid var(--gold) !important;box-shadow:0 2px 12px rgba(15,28,63,0.06) !important}
+.card:hover{box-shadow:0 4px 20px rgba(15,28,63,0.1) !important}
+
+/* Metric cards */
+.metric{background:#FFFDF8 !important;border:1px solid rgba(201,168,76,0.2) !important;border-top:2px solid var(--gold) !important;box-shadow:0 2px 8px rgba(15,28,63,0.05) !important}
+
+/* Sidebar — richer navy with subtle gold shimmer */
+.sidebar{background:linear-gradient(180deg,#0A1628 0%,#0F1C3F 40%,#0D1835 100%) !important;border-right:1px solid rgba(201,168,76,0.15) !important}
+
+/* Sidebar active item */
+.nav-item.on,.nav-item.active{background:rgba(201,168,76,0.12) !important;border-left-color:var(--gold) !important}
+
+/* Top nav */
+.top-nav{background:linear-gradient(90deg,#0A1628 0%,#0F1C3F 100%) !important;border-bottom:1px solid rgba(201,168,76,0.3) !important;box-shadow:0 2px 12px rgba(15,28,63,0.15) !important}
+
+/* Topbar inside portal */
+.topbar{background:#FFFDF8 !important;border-bottom:1px solid rgba(201,168,76,0.2) !important;box-shadow:0 1px 8px rgba(15,28,63,0.06) !important}
+
+/* Table rows */
+.tbl tr:hover td{background:rgba(201,168,76,0.04) !important}
+.tbl th{border-bottom:2px solid rgba(201,168,76,0.25) !important;color:var(--navy) !important}
+
+/* Modals */
+.modal{background:#FFFDF8 !important;border-top:3px solid var(--gold) !important;box-shadow:0 8px 40px rgba(15,28,63,0.2) !important}
+.modal-bg.show{background:rgba(10,22,40,0.65) !important}
+
+/* Login box */
+.login-box{background:#FFFDF8 !important;border-top:3px solid var(--gold) !important;box-shadow:0 8px 40px rgba(15,28,63,0.15) !important}
+.login-wrap{background:linear-gradient(135deg,#F5F0E8 0%,#EDE8DC 50%,#F0EBE0 100%) !important}
+
+/* Receipt/payslip preview box */
+.rp,.receipt-box{background:#FFFDF8 !important;border:1px solid rgba(201,168,76,0.25) !important}
+
+/* Inputs */
+.f-in,.f-sel,.f-sel2,.search-in{background:#FFFDF8 !important;border-color:rgba(201,168,76,0.25) !important}
+.f-in:focus,.f-sel:focus,.f-sel2:focus,.search-in:focus{border-color:var(--gold) !important;box-shadow:0 0 0 2px rgba(201,168,76,0.1) !important}
+
+/* Gold divider line in sidebar */
+.sb-logo{border-bottom:1px solid rgba(201,168,76,0.2) !important}
+.sb-foot,.sb-logout{border-top:1px solid rgba(201,168,76,0.12) !important}
+.sb-user{border-top:1px solid rgba(201,168,76,0.12) !important}
+
+/* Nav sections */
+.nav-section{color:rgba(201,168,76,0.5) !important}
+
+/* Alert info */
+.alert.info{background:#F5F0E8 !important;border-color:rgba(201,168,76,0.3) !important;color:var(--navy) !important}
+
+/* Content area */
+.content{background:transparent !important}
+.main{background:transparent !important}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<div class="top-nav">
+  <a class="top-nav-logo" href="index.html">A&A Music Studio <span>Student Portal</span></a>
+  <div class="top-nav-links">
+    <a href="index.html">Home</a>
+    <div class="nav-divider"></div>
+    <a href="student-portal.html" class="active">Student</a>
+    <a href="teacher.html">Teacher</a>
+    <a href="admin.html">Admin</a>
+  </div>
+</div>
+
+<!-- LOGIN PAGE -->
+<div id="loginPage" class="login-wrap">
+  <div class="login-box">
+    <div class="login-brand">
+      <div class="name">A&A Worldclass Superior</div>
+      <div class="sub">Student Portal</div>
+    </div>
+    <div id="authError" class="alert error hidden"></div>
+    <div class="login-tabs">
+      <div class="l-tab on" onclick="setTab('email')">Email</div>
+      <div class="l-tab" onclick="setTab('phone')">Phone</div>
+      <div class="l-tab" onclick="setTab('google')">Google</div>
+    </div>
+    <!-- Email Login -->
+    <div id="tEmail">
+      <label class="f-lbl">Email address</label>
+      <input class="f-in" type="email" id="loginEmail" placeholder="student@email.com"/>
+      <label class="f-lbl">Password</label>
+      <input class="f-in" type="password" id="loginPass" placeholder="••••••••"/>
+      <button class="btn gold" style="width:100%;padding:0.6rem;margin-top:0.8rem" onclick="loginEmail()">Sign in</button>
+      <p class="text-muted" style="margin-top:0.8rem"><span class="text-gold" onclick="showForgotPassword()">Forgot password?</span></p>
+    </div>
+    <!-- Phone Login -->
+    <div id="tPhone" class="hidden">
+      <div id="phoneStep1">
+        <label class="f-lbl">Phone number</label>
+        <input class="f-in" type="tel" id="phoneNum" placeholder="+60 12-345 6789"/>
+        <div id="recaptcha-container" style="margin:0.8rem 0"></div>
+        <button class="btn gold" style="width:100%;padding:0.6rem" onclick="sendOTP()">Send OTP</button>
+      </div>
+      <div id="phoneStep2" class="hidden">
+        <label class="f-lbl">Enter OTP</label>
+        <input class="f-in" type="text" id="otpCode" placeholder="6-digit code"/>
+        <button class="btn gold" style="width:100%;padding:0.6rem;margin-top:0.8rem" onclick="verifyOTP()">Verify OTP</button>
+      </div>
+    </div>
+    <!-- Google Login -->
+    <div id="tGoogle" class="hidden">
+      <button class="btn" style="width:100%;padding:0.6rem;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:0.5rem" onclick="loginGoogle()">
+        <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Continue with Google
+      </button>
+    </div>
+    <div class="divider"></div>
+    <!-- Forgot Password -->
+    <div id="forgotSection" class="hidden">
+      <label class="f-lbl">Enter your email to reset password</label>
+      <input class="f-in" type="email" id="resetEmail" placeholder="your@email.com"/>
+      <button class="btn gold" style="width:100%;padding:0.6rem;margin-top:0.6rem" onclick="sendPasswordReset()">Send Reset Email</button>
+      <p class="text-muted" style="margin-top:0.6rem"><span class="text-gold" onclick="hideForgotPassword()">Back to login</span></p>
+    </div>
+    <p class="text-muted" style="margin-top:0.8rem">New student? <a href="index.html#trial" style="color:var(--gold)">Register here</a></p>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div id="loadingPage" class="hidden">
+  <div class="top-nav"><a class="top-nav-logo" href="index.html">A&A Music Studio</a></div>
+  <div class="loading"><div class="spinner"></div><p style="font-size:0.82rem;color:var(--muted)">Loading your portal...</p></div>
+</div>
+
+<!-- PORTAL -->
+<div id="portalPage" class="portal hidden">
+  <div class="sidebar">
+    <div class="sb-logo"><div class="name">A&A</div><div class="sub">Student Portal</div></div>
+    <div class="nav-item active" onclick="goPage('dashboard',this)"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
+    <div class="nav-item" onclick="goPage('schedule',this)"><i class="ti ti-calendar"></i> Schedule</div>
+    <div class="nav-item" onclick="goPage('payments',this)"><i class="ti ti-credit-card"></i> Payments</div>
+    <div class="nav-item" onclick="goPage('shop',this)"><i class="ti ti-shopping-bag"></i> Shop</div>
+    <div class="nav-item" onclick="goPage('events',this)"><i class="ti ti-calendar-event"></i> Events</div>
+    <div class="nav-item" onclick="goPage('receipts',this)"><i class="ti ti-receipt"></i> Receipts</div>
+    <div class="sb-user">
+      <div class="u-av" id="userInitials">ST</div>
+      <div><div class="u-name" id="userName">Loading...</div><div class="u-role" id="userRole">Student</div></div>
+    </div>
+    <div class="sb-logout" onclick="logoutUser()"><i class="ti ti-logout"></i> Sign out</div>
+  </div>
+  <div class="main">
+    <div class="topbar"><div class="pg-title" id="pgTitle">Dashboard</div>
+      <i class="ti ti-bell" style="font-size:18px;color:var(--muted);cursor:pointer"></i>
+    </div>
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div class="page active" id="pg-dashboard">
+        <div class="metrics">
+          <div class="metric"><div class="m-lbl">Next lesson</div><div class="m-val" id="nextLesson" style="font-size:0.9rem;margin-top:3px">—</div><div class="m-sub" id="nextTeacher">—</div></div>
+          <div class="metric"><div class="m-lbl">This month</div><div class="m-val" id="monthLessons">—</div><div class="m-sub">lessons</div></div>
+          <div class="metric"><div class="m-lbl">Balance due</div><div class="m-val" id="balanceDue">—</div><div class="m-warn" id="dueDate">—</div></div>
+          <div class="metric"><div class="m-lbl">Attendance</div><div class="m-val" id="attendance">—</div><div class="m-sub">this month</div></div>
+        </div>
+        <div class="two">
+          <div class="card">
+            <div class="card-hd">Upcoming Lessons <span onclick="goPage('schedule',document.querySelectorAll('.nav-item')[1])">View all →</span></div>
+            <div id="upcomingLessons"><div class="loading" style="padding:1rem"><div class="spinner" style="width:20px;height:20px;border-width:2px"></div></div></div>
+          </div>
+          <div class="card">
+            <div class="card-hd">Recent Payments <span onclick="goPage('receipts',document.querySelectorAll('.nav-item')[4])">View all →</span></div>
+            <div id="recentPayments"><div class="loading" style="padding:1rem"><div class="spinner" style="width:20px;height:20px;border-width:2px"></div></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hd">Your Teacher</div>
+          <div id="teacherInfo"><div class="loading" style="padding:1rem"><div class="spinner" style="width:20px;height:20px;border-width:2px"></div></div></div>
+        </div>
+      </div>
+
+      <!-- SCHEDULE -->
+      <div class="page" id="pg-schedule">
+        <div class="alert success hidden" id="schedSuccess"><i class="ti ti-circle-check"></i><p>Lesson rescheduled to <strong id="newTime"></strong>. Confirmation sent to your email.</p></div>
+        <div class="two">
+          <div class="card">
+            <div class="card-hd">Pick a New Date</div>
+            <div class="cal-grid" id="calGrid"></div>
+            <div style="height:1px;background:var(--border);margin:0.6rem 0"></div>
+            <p style="font-size:0.72rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem">Available Slots</p>
+            <div class="slots" id="timeSlots"></div>
+            <button class="btn gold" style="width:100%" onclick="confirmReschedule()">Confirm Reschedule</button>
+          </div>
+          <div>
+            <div class="card">
+              <div class="card-hd">Current Booking</div>
+              <div id="currentBooking"><div class="loading" style="padding:1rem"><div class="spinner" style="width:20px;height:20px;border-width:2px"></div></div></div>
+              <p style="font-size:0.65rem;color:var(--muted);margin-top:0.7rem">⚠ Must reschedule at least 24 hrs before lesson.</p>
+            </div>
+            <div class="card">
+              <div class="card-hd">Lesson History</div>
+              <div id="lessonHistory"><div class="loading" style="padding:1rem"><div class="spinner" style="width:20px;height:20px;border-width:2px"></div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAYMENTS -->
+      <div class="page" id="pg-payments">
+        <div class="alert success hidden" id="paySuccess"><i class="ti ti-circle-check"></i><p>Payment recorded! Receipt is ready.</p></div>
+        <div class="two">
+          <div class="card">
+            <div class="card-hd">Amount Due</div>
+            <div id="paymentDue"><div class="loading" style="padding:1rem"><div class="spinner" style="width:20px;height:20px;border-width:2px"></div></div></div>
+            <div style="height:1px;background:var(--border);margin:0.8rem 0"></div>
+            <p style="font-size:0.72rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.7rem">Payment Method</p>
+            <div class="pay-method sel" onclick="pickPay(this)"><span style="font-size:1.1rem">🏦</span><div><div style="font-size:0.8rem;font-weight:500">Online Banking / FPX</div><div style="font-size:0.67rem;color:var(--muted)">Maybank, CIMB, RHB & more</div></div><div class="radio on"></div></div>
+            <div class="pay-method" onclick="pickPay(this)"><span style="font-size:1.1rem">💚</span><div><div style="font-size:0.8rem;font-weight:500">Touch 'n Go eWallet</div><div style="font-size:0.67rem;color:var(--muted)">Scan QR or auto-debit</div></div><div class="radio"></div></div>
+            <button class="btn gold" style="width:100%;padding:0.65rem;margin-top:0.8rem" onclick="recordPayment()">Pay Now</button>
+          </div>
+          <div class="card">
+            <div class="card-hd">Payment Summary</div>
+            <div id="paymentSummary"><div class="loading" style="padding:1rem"><div class="spinner" style="width:20px;height:20px;border-width:2px"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SHOP -->
+      <div class="page" id="pg-shop">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+          <div style="font-size:0.75rem;color:var(--muted)">Instruments, books & digital resources</div>
+          <button class="btn sm">🛒 Cart (<span id="cartN">0</span>)</button>
+        </div>
+        <div class="shop-grid">
+          <div class="shop-card"><div class="shop-img">🎹</div><div class="shop-body"><div class="shop-name">Digital Piano 88-Key</div><div class="shop-desc">Weighted keys, built-in metronome, USB MIDI</div><div class="shop-foot"><span class="shop-price">RM 1,299</span><button class="btn sm" onclick="addCart(this,'Digital Piano','RM 1,299')">Add</button></div></div></div>
+          <div class="shop-card"><div class="shop-img">🎻</div><div class="shop-body"><div class="shop-name">Student Violin 4/4</div><div class="shop-desc">Full size, spruce top, maple back & sides</div><div class="shop-foot"><span class="shop-price">RM 380</span><button class="btn sm" onclick="addCart(this,'Violin 4/4','RM 380')">Add</button></div></div></div>
+          <div class="shop-card"><div class="shop-img">📖</div><div class="shop-body"><div class="shop-name">Piano Adventures Level 1</div><div class="shop-desc">Faber beginner method book</div><div class="shop-foot"><span class="shop-price">RM 35</span><button class="btn sm" onclick="addCart(this,'Piano Adventures','RM 35')">Add</button></div></div></div>
+          <div class="shop-card"><div class="shop-img">📖</div><div class="shop-body"><div class="shop-name">ABRSM Piano Grade 3</div><div class="shop-desc">Official exam syllabus 2025–26</div><div class="shop-foot"><span class="shop-price">RM 42</span><button class="btn sm" onclick="addCart(this,'ABRSM Grade 3','RM 42')">Add</button></div></div></div>
+          <div class="shop-card"><div class="shop-img">🎵</div><div class="shop-body"><div class="shop-name">Sheet Music Bundle</div><div class="shop-desc">Digital PDF · 50 popular pieces</div><div class="shop-foot"><span class="shop-price">RM 28</span><button class="btn sm" onclick="addCart(this,'Sheet Music','RM 28')">Add</button></div></div></div>
+          <div class="shop-card"><div class="shop-img">🎤</div><div class="shop-body"><div class="shop-name">Vocal Warm-Up Guide</div><div class="shop-desc">Digital PDF · 30-day programme</div><div class="shop-foot"><span class="shop-price">RM 18</span><button class="btn sm" onclick="addCart(this,'Vocal Guide','RM 18')">Add</button></div></div></div>
+        </div>
+        <div class="card" style="margin-top:1rem"><div class="card-hd">Your Cart</div>
+          <div id="cartList"><p style="font-size:0.78rem;color:var(--muted)">No items yet.</p></div>
+          <div id="checkoutDetails" style="display:none;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.3);padding:1rem;border-radius:4px;margin-top:0.8rem">
+            <div style="font-size:0.72rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.7rem">Bank Transfer Details</div>
+            <div class="r-row"><span class="r-lbl">Bank</span><span>Maybank</span></div>
+            <div class="r-row"><span class="r-lbl">Account Name</span><span>A&A Music Studio</span></div>
+            <div class="r-row"><span class="r-lbl">Account No.</span><span>1234-5678-9012</span></div>
+            <div class="r-row"><span class="r-lbl">Reference</span><span id="orderRef">ORDER-001</span></div>
+            <div class="r-row total"><span>Total</span><span id="orderTotal">RM 0</span></div>
+            <div style="margin-top:0.8rem;padding:0.6rem;background:rgba(30,122,74,0.1);border-radius:4px;font-size:0.72rem;color:#145A35">
+              Please transfer the exact amount and use the reference number. Our team will confirm your order within 24 hours.
+            </div>
+            <button class="btn gold" style="width:100%;margin-top:0.8rem" onclick="confirmOrder()">I Have Transferred — Confirm Order</button>
+          </div>
+          <button class="btn gold" style="width:100%;margin-top:0.8rem" id="checkoutBtn" onclick="showCheckout()">Proceed to Payment</button>
+        </div>
+      </div>
+
+      <!-- RECEIPTS -->
+      <div class="page" id="pg-receipts">
+        <div class="two">
+          <div class="card">
+            <div class="card-hd">Receipt History</div>
+            <div id="receiptList"><div class="loading" style="padding:1rem"><div class="spinner" style="width:20px;height:20px;border-width:2px"></div></div></div>
+          </div>
+          <div>
+            <div class="receipt-box" id="receiptPreview">
+              <div style="text-align:center;padding-bottom:0.9rem;margin-bottom:0.9rem;border-bottom:1px dashed rgba(15,28,63,0.15)">
+                <div style="font-size:1rem;font-weight:700;color:var(--navy)">A&A Worldclass Superior</div>
+                <div style="font-size:0.65rem;color:var(--muted);margin-top:3px">Kuala Lumpur, Malaysia</div>
+                <div style="font-size:0.62rem;color:var(--muted);margin-top:5px;letter-spacing:0.1em;text-transform:uppercase">Official Receipt</div>
+                <div style="font-size:0.72rem;font-weight:700;margin-top:3px" id="rcpNoDisplay">Select a receipt</div>
+              </div>
+              <div id="rcpBody"><p style="font-size:0.75rem;color:var(--muted);text-align:center">Click any receipt on the left to preview.</p></div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:0.8rem">
+              <button class="btn gold" style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px" onclick="downloadReceiptPDF()"><i class="ti ti-download" style="font-size:14px"></i> Download PDF</button>
+              <button class="btn" style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px"><i class="ti ti-mail" style="font-size:14px"></i> Email Receipt</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EVENTS -->
+      <div class="page" id="pg-events">
+        <div class="card">
+          <div class="card-hd">Upcoming Events & Seminars</div>
+          <div id="eventsList"><div class="loading" style="padding:1rem"><div class="spinner" style="width:20px;height:20px;border-width:2px"></div></div></div>
+        </div>
+        <div class="card" id="myRegistrationsCard">
+          <div class="card-hd">My Registrations</div>
+          <div id="myRegistrationsList"><div class="loading" style="padding:1rem"><div class="spinner" style="width:20px;height:20px;border-width:2px"></div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, RecaptchaVerifier, signInWithPhoneNumber, sendPasswordResetEmail, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import { getFirestore, doc, getDoc, collection, query, where, orderBy, getDocs, addDoc, updateDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { jsPDF } from 'https://esm.sh/jspdf@2.5.1';
+
+// ========== FIREBASE CONFIG ==========
+// REPLACE THIS WITH YOUR FIREBASE CONFIG
+const firebaseConfig = {
+  apiKey: "AIzaSyDKlurv4LOIBkJiW3clhSJvgW4FWrnZ6Aw",
+  authDomain: "aa-worldclass-superior.firebaseapp.com",
+  projectId: "aa-worldclass-superior",
+  storageBucket: "aa-worldclass-superior.firebasestorage.app",
+  messagingSenderId: "450605849549",
+  appId: "1:450605849549:web:497899dacab0a6bc638284"
+};
+// ======================================
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const googleProvider = new GoogleAuthProvider();
+
+let currentUser = null;
+let currentStudentData = null;
+let selectedReceiptData = null;
+let confirmationResult = null;
+let cartItems = [];
+let selDay = null, selSlot = null;
+
+// AUTH STATE
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    // Check if this user is a registered student (added by admin)
+    const emailQ = await getDocs(query(collection(db,'students'),where('email','==',user.email)));
+    const phoneQ = user.phoneNumber ? await getDocs(query(collection(db,'students'),where('phone','==',user.phoneNumber))) : {empty:true};
+    if (!emailQ.empty || !phoneQ.empty) {
+      currentUser = user;
+      document.getElementById('loginPage').classList.add('hidden');
+      document.getElementById('loadingPage').classList.remove('hidden');
+      await loadStudentData(user.uid, user.email);
+      document.getElementById('loadingPage').classList.add('hidden');
+      document.getElementById('portalPage').classList.remove('hidden');
+    } else {
+      // Not a registered student
+      await signOut(auth);
+      const err = document.getElementById('authError');
+      err.textContent = 'Access denied. You are not registered as a student. Please contact A&A Music Studio.';
+      err.className = 'alert error';
+      err.classList.remove('hidden');
+    }
+  } else {
+    currentUser = null;
+    document.getElementById('loginPage').classList.remove('hidden');
+    document.getElementById('loadingPage').classList.add('hidden');
+    document.getElementById('portalPage').classList.add('hidden');
+  }
+});
+
+// LOAD STUDENT DATA
+async function loadStudentData(uid, email) {
+  try {
+    // Try to find student by uid first, then by email
+    let studentDoc = await getDoc(doc(db, 'students', uid));
+    if (!studentDoc.exists()) {
+      // Search by email
+      const q = query(collection(db, 'students'), where('email', '==', email));
+      const snap = await getDocs(q);
+      if (!snap.empty) {
+        currentStudentData = { id: snap.docs[0].id, ...snap.docs[0].data() };
+      } else {
+        currentStudentData = { name: email, instrument: 'Not assigned', teacher: 'Not assigned', plan: 'Solo' };
+      }
+    } else {
+      currentStudentData = { id: uid, ...studentDoc.data() };
+    }
+    updateUI();
+    loadDashboard();
+  } catch (e) {
+    console.error('Error loading student data:', e);
+    currentStudentData = { name: currentUser.displayName || currentUser.email, instrument: '—', teacher: '—', plan: '—' };
+    updateUI();
+  }
+}
+
+function updateUI() {
+  const name = currentStudentData.name || currentUser.displayName || currentUser.email;
+  const initials = name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('userName').textContent = name;
+  document.getElementById('userInitials').textContent = initials;
+  document.getElementById('userRole').textContent = (currentStudentData.instrument || '') + (currentStudentData.instrument ? ' · ' : '') + (currentStudentData.plan || 'Student');
+}
+
+async function loadDashboard() {
+  if (!currentStudentData) return;
+  const studentId = currentStudentData.id || currentUser.uid;
+
+  // Load upcoming lessons
+  try {
+    const lessonsQ = query(collection(db, 'lessons'), where('studentId', '==', studentId), where('status', '==', 'confirmed'), orderBy('date', 'asc'));
+    const lessonsSnap = await getDocs(lessonsQ);
+    let lessonsHTML = '';
+    let count = 0;
+    lessonsSnap.forEach(d => {
+      const l = d.data();
+      count++;
+      if (count <= 2) {
+        lessonsHTML += `<div class="row" style="padding-top:${count===1?'0':'0.55rem'}"><div><div class="rt">${l.instrument || currentStudentData.instrument} · ${l.teacherName || currentStudentData.teacher}</div><div class="rm">${l.date} · ${l.time}</div></div><span class="pill p-ok">Confirmed</span></div>`;
+      }
+      if (count === 1) {
+        document.getElementById('nextLesson').textContent = l.date;
+        document.getElementById('nextTeacher').textContent = l.time + ' · ' + (l.teacherName || currentStudentData.teacher);
+      }
+    });
+    if (count === 0) lessonsHTML = '<p style="font-size:0.78rem;color:var(--muted)">No upcoming lessons.</p>';
+    document.getElementById('upcomingLessons').innerHTML = lessonsHTML;
+    document.getElementById('monthLessons').textContent = count;
+  } catch(e) {
+    document.getElementById('upcomingLessons').innerHTML = '<p style="font-size:0.78rem;color:var(--muted)">No lessons found.</p>';
+  }
+
+  // Load recent payments
+  try {
+    const paymentsQ = query(collection(db, 'payments'), where('studentId', '==', studentId), orderBy('createdAt', 'desc'));
+    const paymentsSnap = await getDocs(paymentsQ);
+    let paymentsHTML = '';
+    let count = 0;
+    let totalDue = 0;
+    paymentsSnap.forEach(d => {
+      const p = d.data();
+      count++;
+      if (p.status === 'pending') totalDue += p.amount || 0;
+      if (count <= 2) {
+        paymentsHTML += `<div class="row" style="padding-top:${count===1?'0':'0.55rem'}"><div><div class="rt">${p.description}</div><div class="rm">${p.method || '—'} · ${p.date || '—'}</div></div><div style="text-align:right"><div style="font-size:0.8rem;font-weight:600">RM ${p.amount}</div><span class="pill ${p.status==='paid'?'p-ok':'p-warn'}" style="display:inline-block;margin-top:2px">${p.status}</span></div></div>`;
+      }
+    });
+    if (count === 0) paymentsHTML = '<p style="font-size:0.78rem;color:var(--muted)">No payment records.</p>';
+    document.getElementById('recentPayments').innerHTML = paymentsHTML;
+    document.getElementById('balanceDue').textContent = totalDue > 0 ? 'RM ' + totalDue : 'RM 0';
+    document.getElementById('dueDate').textContent = totalDue > 0 ? 'Outstanding' : 'All paid ✓';
+    document.getElementById('attendance').textContent = currentStudentData.attendance || '—';
+  } catch(e) {
+    document.getElementById('recentPayments').innerHTML = '<p style="font-size:0.78rem;color:var(--muted)">No payments found.</p>';
+  }
+
+  // Teacher info
+  const teacher = currentStudentData.teacher || '—';
+  const instrument = currentStudentData.instrument || '—';
+  document.getElementById('teacherInfo').innerHTML = `
+    <div style="display:flex;align-items:center;gap:1rem">
+      <div style="width:48px;height:48px;border-radius:50%;background:rgba(201,168,76,0.15);display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:var(--gold);flex-shrink:0">${teacher.split(' ').map(n=>n[0]).join('').slice(0,2)}</div>
+      <div><div style="font-size:0.88rem;font-weight:700">${teacher}</div><div style="font-size:0.72rem;color:var(--gold);margin-top:2px">${instrument}</div><div style="font-size:0.68rem;color:var(--muted);margin-top:3px">Plan: ${currentStudentData.plan || '—'}</div></div>
+      <button class="btn sm" style="margin-left:auto" onclick="goPage('schedule',document.querySelectorAll('.nav-item')[1])">Reschedule</button>
+    </div>`;
+
+  // Load payments due
+  loadPaymentPage();
+  loadReceiptList();
+  buildCal();
+  loadSchedule();
+  loadEvents();
+}
+
+async function loadPaymentPage() {
+  if (!currentStudentData) return;
+  const studentId = currentStudentData.id || currentUser.uid;
+  try {
+    const q = query(collection(db, 'payments'), where('studentId', '==', studentId), where('status', '==', 'pending'), orderBy('createdAt', 'desc'));
+    const snap = await getDocs(q);
+    if (snap.empty) {
+      document.getElementById('paymentDue').innerHTML = '<div style="text-align:center;padding:1rem"><div style="font-size:0.68rem;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.12em">Balance Due</div><div style="font-size:2.5rem;font-weight:700">RM 0</div><div style="font-size:0.68rem;color:var(--green);margin-top:4px">All paid ✓</div></div>';
+      document.getElementById('paymentSummary').innerHTML = '<p style="font-size:0.78rem;color:var(--muted)">No outstanding payments.</p>';
+      return;
+    }
+    const payment = { id: snap.docs[0].id, ...snap.docs[0].data() };
+    document.getElementById('paymentDue').innerHTML = `<div style="text-align:center;padding:1rem"><div style="font-size:0.68rem;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.12em">${payment.description}</div><div style="font-size:2.5rem;font-weight:700">RM ${payment.amount}</div><div style="font-size:0.68rem;color:var(--amber);margin-top:4px">Due ${payment.dueDate || '—'}</div></div>`;
+    document.getElementById('paymentSummary').innerHTML = `
+      <div class="r-row"><span class="r-lbl">Description</span><span>${payment.description}</span></div>
+      <div class="r-row"><span class="r-lbl">Student</span><span>${currentStudentData.name}</span></div>
+      <div class="r-row"><span class="r-lbl">Teacher</span><span>${currentStudentData.teacher || '—'}</span></div>
+      <div class="r-row"><span class="r-lbl">Plan</span><span>${currentStudentData.plan || '—'}</span></div>
+      <div class="r-row total"><span>Total</span><span>RM ${payment.amount}</span></div>`;
+    window._currentPaymentId = payment.id;
+    window._currentPaymentAmount = payment.amount;
+    window._currentPaymentDesc = payment.description;
+  } catch(e) {
+    document.getElementById('paymentDue').innerHTML = '<p style="font-size:0.78rem;color:var(--muted)">Error loading payments.</p>';
+  }
+}
+
+async function loadReceiptList() {
+  if (!currentStudentData) return;
+  const studentId = currentStudentData.id || currentUser.uid;
+  try {
+    const q = query(collection(db, 'payments'), where('studentId', '==', studentId), where('status', '==', 'paid'), orderBy('createdAt', 'desc'));
+    const snap = await getDocs(q);
+    let html = '';
+    snap.forEach(d => {
+      const p = { id: d.id, ...d.data() };
+      html += `<div class="row" style="cursor:pointer;padding-top:0" onclick="viewReceipt('${p.id}','${p.description}','RM ${p.amount}','${p.date}','${p.method||'—'}')">
+        <div><div class="rt">${p.description}</div><div class="rm">${p.date} · ${p.method||'—'}</div></div>
+        <div style="text-align:right"><div style="font-size:0.78rem;font-weight:700">RM ${p.amount}</div><span class="pill p-ok" style="display:inline-block;margin-top:2px">Paid</span></div></div>`;
+    });
+    if (!html) html = '<p style="font-size:0.78rem;color:var(--muted)">No receipts yet.</p>';
+    document.getElementById('receiptList').innerHTML = html;
+  } catch(e) {
+    document.getElementById('receiptList').innerHTML = '<p style="font-size:0.78rem;color:var(--muted)">Error loading receipts.</p>';
+  }
+}
+
+async function loadSchedule() {
+  if (!currentStudentData) return;
+  const studentId = currentStudentData.id || currentUser.uid;
+  try {
+    const q = query(collection(db, 'lessons'), where('studentId', '==', studentId), orderBy('date', 'asc'));
+    const snap = await getDocs(q);
+    let upcoming = '', history = '';
+    let hasUpcoming = false;
+    snap.forEach(d => {
+      const l = d.data();
+      if (l.status === 'confirmed') {
+        hasUpcoming = true;
+        upcoming = `<div class="row" style="padding-top:0"><div><div class="rt">${l.instrument||currentStudentData.instrument} · ${l.teacherName||currentStudentData.teacher}</div></div><span class="pill p-ok">Confirmed</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:0.7rem">
+          <div class="metric" style="padding:0.6rem"><div class="m-lbl">Date</div><div style="font-size:0.8rem;font-weight:600;margin-top:3px">${l.date}</div></div>
+          <div class="metric" style="padding:0.6rem"><div class="m-lbl">Time</div><div style="font-size:0.8rem;font-weight:600;margin-top:3px">${l.time}</div></div>
+        </div>`;
+      } else if (l.status === 'completed') {
+        history += `<div class="row"><div><div class="rt">${l.instrument||currentStudentData.instrument} · ${l.date}</div><div class="rm">${l.time}</div></div><span class="pill p-gray">Done</span></div>`;
+      }
+    });
+    document.getElementById('currentBooking').innerHTML = hasUpcoming ? upcoming : '<p style="font-size:0.78rem;color:var(--muted)">No upcoming lessons.</p>';
+    document.getElementById('lessonHistory').innerHTML = history || '<p style="font-size:0.78rem;color:var(--muted)">No lesson history yet.</p>';
+  } catch(e) {
+    document.getElementById('currentBooking').innerHTML = '<p style="font-size:0.78rem;color:var(--muted)">Error loading schedule.</p>';
+  }
+
+  // Build time slots
+  const slots = ['9:00 AM','10:00 AM','11:00 AM','12:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM'];
+  let slotsHTML = '';
+  slots.forEach(s => { slotsHTML += `<div class="slot" onclick="pickSlot(this,'${s}')">${s}</div>`; });
+  document.getElementById('timeSlots').innerHTML = slotsHTML;
+}
+
+// AUTH FUNCTIONS - exposed globally
+window.setTab = function(t) {
+  ['Email','Phone','Google'].forEach((x,i) => {
+    document.getElementById('t'+x).classList.add('hidden');
+    document.querySelectorAll('.l-tab')[i].classList.remove('on');
+  });
+  document.getElementById('t'+t.charAt(0).toUpperCase()+t.slice(1)).classList.remove('hidden');
+  document.querySelectorAll('.l-tab')[['email','phone','google'].indexOf(t)].classList.add('on');
+};
+
+window.loginEmail = async function() {
+  const email = document.getElementById('loginEmail').value;
+  const pass = document.getElementById('loginPass').value;
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+  } catch(e) {
+    showAuthError(e.code === 'auth/wrong-password' ? 'Incorrect password.' : e.code === 'auth/user-not-found' ? 'No account found with this email.' : 'Login failed. Please try again.');
+  }
+};
+
+window.loginGoogle = async function() {
+  try { await signInWithPopup(auth, googleProvider); } catch(e) { showAuthError('Google login failed.'); }
+};
+
+window.sendOTP = async function() {
+  const phone = document.getElementById('phoneNum').value;
+  try {
+    if (!window.recaptchaVerifier) {
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { size: 'normal' });
+    }
+    confirmationResult = await signInWithPhoneNumber(auth, phone, window.recaptchaVerifier);
+    document.getElementById('phoneStep1').classList.add('hidden');
+    document.getElementById('phoneStep2').classList.remove('hidden');
+  } catch(e) { showAuthError('Failed to send OTP. Check phone number.'); }
+};
+
+window.verifyOTP = async function() {
+  try {
+    await confirmationResult.confirm(document.getElementById('otpCode').value);
+  } catch(e) { showAuthError('Invalid OTP. Please try again.'); }
+};
+
+window.showForgotPassword = function() {
+  document.getElementById('tEmail').classList.add('hidden');
+  document.getElementById('forgotSection').classList.remove('hidden');
+};
+window.hideForgotPassword = function() {
+  document.getElementById('forgotSection').classList.add('hidden');
+  document.getElementById('tEmail').classList.remove('hidden');
+};
+window.sendPasswordReset = async function() {
+  const email = document.getElementById('resetEmail').value;
+  try {
+    await sendPasswordResetEmail(auth, email);
+    showAuthError('Password reset email sent! Check your inbox.', 'info');
+  } catch(e) { showAuthError('Failed to send reset email.'); }
+};
+
+window.logoutUser = async function() {
+  await signOut(auth);
+};
+
+function showAuthError(msg, type='error') {
+  const el = document.getElementById('authError');
+  el.textContent = msg;
+  el.className = `alert ${type}`;
+  el.classList.remove('hidden');
+}
+
+// PAGE NAVIGATION
+window.goPage = function(n, el) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+  document.getElementById('pg-'+n).classList.add('active');
+  if(el) el.classList.add('active');
+  const titles = {dashboard:'Dashboard',schedule:'Reschedule Lesson',payments:'Make a Payment',shop:'Shop',receipts:'Receipts',events:'Events & Seminars'};
+  document.getElementById('pgTitle').textContent = titles[n]||n;
+};
+
+// CALENDAR
+window.buildCal = function() {
+  const g = document.getElementById('calGrid');
+  if(!g||g.children.length>7) return;
+  ['S','M','T','W','T','F','S'].forEach(d=>{const h=document.createElement('div');h.className='cal-dh';h.textContent=d;g.appendChild(h);});
+  const today = new Date();
+  for(let i=1;i<=31;i++){
+    const c=document.createElement('div');
+    c.className='cal-cell'+(i===today.getDate()?' today':'');
+    c.textContent=i;
+    const day=i;
+    c.onclick=function(){document.querySelectorAll('.cal-cell').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');selDay=day;};
+    g.appendChild(c);
+  }
+};
+
+window.pickSlot = function(el,t){
+  document.querySelectorAll('.slot').forEach(s=>s.classList.remove('sel'));
+  el.classList.add('sel'); selSlot=t;
+};
+
+window.confirmReschedule = async function() {
+  if(!selDay||!selSlot){alert('Please select a date and time.');return;}
+  const studentId = currentStudentData?.id || currentUser?.uid;
+  try {
+    const q = query(collection(db,'lessons'),where('studentId','==',studentId),where('status','==','confirmed'));
+    const snap = await getDocs(q);
+    if(!snap.empty) {
+      await updateDoc(doc(db,'lessons',snap.docs[0].id),{date:`${selDay} May 2026`,time:selSlot,updatedAt:serverTimestamp()});
+    }
+    document.getElementById('newTime').textContent=`${selDay} May 2026 · ${selSlot}`;
+    document.getElementById('schedSuccess').classList.remove('hidden');
+    selDay=null;selSlot=null;
+    document.querySelectorAll('.cal-cell').forEach(c=>c.classList.remove('sel'));
+    document.querySelectorAll('.slot').forEach(s=>s.classList.remove('sel'));
+    loadSchedule();
+  } catch(e){ alert('Error rescheduling. Please try again.'); }
+};
+
+window.pickPay = function(el){
+  document.querySelectorAll('.pay-method').forEach(p=>{p.classList.remove('sel');p.querySelector('.radio').classList.remove('on');});
+  el.classList.add('sel');el.querySelector('.radio').classList.add('on');
+};
+
+window.recordPayment = async function() {
+  if(!window._currentPaymentId){alert('No payment due.');return;}
+  const method = document.querySelector('.pay-method.sel div div:first-child')?.textContent || 'FPX';
+  try {
+    await updateDoc(doc(db,'payments',window._currentPaymentId),{
+      status:'paid',method:method,
+      date:new Date().toLocaleDateString('en-MY',{day:'numeric',month:'short',year:'numeric'}),
+      updatedAt:serverTimestamp()
+    });
+    document.getElementById('paySuccess').classList.remove('hidden');
+    loadPaymentPage(); loadReceiptList();
+  } catch(e){alert('Error recording payment.');}
+};
+
+window.viewReceipt = function(id,desc,amount,date,method) {
+  selectedReceiptData = {id,desc,amount,date,method,student:currentStudentData?.name||''};
+  document.getElementById('rcpNoDisplay').textContent='Receipt #'+id.slice(-6).toUpperCase();
+  document.getElementById('rcpBody').innerHTML=`
+    <div class="r-row"><span class="r-lbl">Student</span><span>${currentStudentData?.name||''}</span></div>
+    <div class="r-row"><span class="r-lbl">Description</span><span>${desc}</span></div>
+    <div class="r-row"><span class="r-lbl">Date</span><span>${date}</span></div>
+    <div class="r-row"><span class="r-lbl">Method</span><span>${method}</span></div>
+    <div class="r-row total"><span>Total</span><span>${amount}</span></div>
+    <div style="text-align:center;margin-top:0.8rem"><span class="pill p-ok" style="font-size:0.65rem;padding:3px 12px">Payment Confirmed</span></div>`;
+};
+
+window.downloadReceiptPDF = function() {
+  if(!selectedReceiptData){alert('Please select a receipt first.');return;}
+  const d = selectedReceiptData;
+  const doc2 = new jsPDF({unit:'mm',format:'a4'});
+  doc2.setFillColor(15,28,63);doc2.rect(0,0,210,38,'F');
+  doc2.setTextColor(201,168,76);doc2.setFontSize(16);doc2.setFont('helvetica','bold');
+  doc2.text('A&A Worldclass Superior',105,15,{align:'center'});
+  doc2.setFontSize(8);doc2.setFont('helvetica','normal');doc2.setTextColor(180,180,180);
+  doc2.text('Excellence in Piano · Singing · Violin  |  worldclasssuperior.com',105,23,{align:'center'});
+  doc2.setTextColor(15,28,63);doc2.setFontSize(13);doc2.setFont('helvetica','bold');
+  doc2.text('OFFICIAL RECEIPT',105,48,{align:'center'});
+  doc2.setFontSize(9);doc2.setFont('helvetica','normal');doc2.setTextColor(130,130,130);
+  doc2.text('Receipt No: #'+d.id.slice(-6).toUpperCase(),105,55,{align:'center'});
+  doc2.setDrawColor(201,168,76);doc2.setLineWidth(0.5);doc2.line(20,59,190,59);
+  const rows=[['Student',d.student],['Description',d.desc],['Date',d.date],['Payment Method',d.method]];
+  let y=68;
+  rows.forEach(r=>{doc2.setFontSize(9);doc2.setFont('helvetica','normal');doc2.setTextColor(130,130,140);doc2.text(r[0],25,y);doc2.setTextColor(15,28,63);doc2.setFont('helvetica','bold');doc2.text(r[1],110,y);y+=9;});
+  doc2.setDrawColor(201,168,76);doc2.line(20,y+2,190,y+2);y+=10;
+  doc2.setFontSize(12);doc2.setTextColor(15,28,63);doc2.text('Total Amount',25,y);doc2.setTextColor(201,168,76);doc2.text(d.amount,110,y);
+  doc2.setFillColor(230,244,237);doc2.roundedRect(60,y+7,90,10,2,2,'F');doc2.setFontSize(9);doc2.setTextColor(20,90,53);doc2.setFont('helvetica','bold');doc2.text('PAYMENT CONFIRMED',105,y+14,{align:'center'});
+  doc2.setFontSize(7.5);doc2.setFont('helvetica','normal');doc2.setTextColor(160,160,160);doc2.text('Thank you. This is an official receipt from A&A Worldclass Superior.',105,y+28,{align:'center'});
+  doc2.setFillColor(15,28,63);doc2.rect(0,270,210,27,'F');doc2.setTextColor(180,180,180);doc2.setFontSize(8);doc2.text('worldclasssuperior.com  ·  All rights reserved © 2026',105,283,{align:'center'});
+  doc2.save('Receipt-'+d.id.slice(-6).toUpperCase()+'.pdf');
+};
+
+window.addCart = function(btn,name,price){
+  cartItems.push({name,price});
+  document.getElementById('cartN').textContent=cartItems.length;
+  const list=document.getElementById('cartList');
+  if(cartItems.length===1)list.innerHTML='';
+  const r=document.createElement('div');r.className='row';r.style.paddingTop='0.35rem';
+  r.innerHTML=`<div class="rt" style="font-size:0.76rem">${name}</div><span style="font-size:0.76rem;font-weight:600">${price}</span>`;
+  list.appendChild(r);btn.textContent='Added';btn.disabled=true;
+};
+</script>
+</body>
+</html>

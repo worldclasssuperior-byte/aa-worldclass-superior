@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>A&A Music Studio — Teacher Portal</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Alice&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#0F1C3F;--navy2:#152040;--navy3:#1E2F5A;--navy4:#253570;--gold:#C9A84C;--gold-light:#E2C97E;--white:#FFFFFF;--off:#F8F6F0;--light:#EEF0F7;--muted:#8A95B0;--muted2:#6B7894;--border:rgba(15,28,63,0.1);--green:#1E7A4A;--green-bg:#E6F4ED;--green-text:#145A35;--amber:#9A6200;--amber-bg:#FEF3DC;--amber-text:#7A4A06;--red:#B91C1C;--red-bg:#FEE2E2;--red-text:#7F1D1D}
+/* UNIFIED TOP NAV */
+.top-nav{background:var(--navy);padding:0 1.8rem;height:52px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(201,168,76,0.25);position:sticky;top:0;z-index:200}
+.top-nav-logo{font-family:'Inter',sans-serif;font-size:1rem;font-weight:400;color:var(--gold);text-decoration:none;letter-spacing:0.03em}
+.top-nav-logo span{color:rgba(255,255,255,0.5);font-size:0.7rem;margin-left:0.5rem;font-family:'Inter',sans-serif;letter-spacing:0.1em;text-transform:uppercase;vertical-align:middle}
+.top-nav-links{display:flex;align-items:center;gap:0.2rem}
+.top-nav-links a{color:rgba(255,255,255,0.45);font-size:0.7rem;text-decoration:none;letter-spacing:0.12em;text-transform:uppercase;font-family:'Inter',sans-serif;padding:0.35rem 0.75rem;border-radius:3px;transition:all 0.2s}
+.top-nav-links a:hover{color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.05)}
+.top-nav-links a.active{color:var(--gold);background:rgba(201,168,76,0.1)}
+.top-nav-links .nav-divider{width:1px;height:18px;background:rgba(255,255,255,0.1);margin:0 0.3rem}
+body{background:var(--light);color:var(--navy);font-family:'Inter',sans-serif;min-height:100vh}
+.top-nav a{color:var(--gold);font-size:0.85rem;font-weight:700;text-decoration:none}
+.top-nav-links a{color:rgba(255,255,255,0.5);font-size:0.75rem;text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;margin-left:1rem}
+.top-nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px}
+.portal{display:flex;min-height:calc(100vh - 40px)}
+.sidebar{width:200px;min-width:200px;background:var(--navy);display:flex;flex-direction:column;position:fixed;top:40px;left:0;height:calc(100vh - 40px)}
+.sb-logo{padding:1.2rem;border-bottom:1px solid rgba(255,255,255,0.07)}
+.sb-logo .name{font-size:0.95rem;font-weight:400;color:var(--gold);font-family:'Alice',serif}
+.sb-logo .sub{font-size:0.6rem;color:rgba(255,255,255,0.35);letter-spacing:0.18em;text-transform:uppercase;margin-top:2px}
+.nav-item{display:flex;align-items:center;gap:8px;padding:0.62rem 1.2rem;cursor:pointer;font-size:0.76rem;color:rgba(255,255,255,0.55);border-left:2px solid transparent;transition:all 0.2s}
+.nav-item:hover{color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.04)}
+.nav-item.active{color:var(--gold);border-left-color:var(--gold);background:rgba(201,168,76,0.08)}
+.nav-item i{font-size:15px}
+.sb-user{margin-top:auto;padding:1rem 1.2rem;border-top:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:8px}
+.u-av{width:30px;height:30px;border-radius:50%;background:rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:var(--gold)}
+.u-name{font-size:0.76rem;color:rgba(255,255,255,0.8)}
+.u-role{font-size:0.62rem;color:rgba(255,255,255,0.4)}
+.sb-logout{padding:0.6rem 1.2rem;cursor:pointer;font-size:0.72rem;color:rgba(255,100,100,0.7);display:flex;align-items:center;gap:8px;border-top:1px solid rgba(255,255,255,0.07)}
+.sb-logout:hover{color:#ff6b6b}
+.main{margin-left:200px;flex:1;display:flex;flex-direction:column}
+.topbar{background:var(--white);padding:0.85rem 1.4rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:40px;z-index:10}
+.pg-title{font-size:0.88rem;font-weight:700;color:var(--navy)}
+.content{padding:1.2rem}
+.page{display:none}.page.active{display:block}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.2rem}
+.metric{background:var(--white);border:1px solid var(--border);padding:0.9rem 1rem;border-radius:6px}
+.m-lbl{font-size:0.6rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:5px}
+.m-val{font-size:1.25rem;font-weight:700;color:var(--navy)}
+.m-sub{font-size:0.63rem;margin-top:3px;color:var(--green)}
+.card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:1rem;margin-bottom:1rem}
+.card-hd{font-size:0.72rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.85rem;display:flex;align-items:center;justify-content:space-between}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.row{display:flex;align-items:center;justify-content:space-between;padding:0.55rem 0;border-bottom:1px solid rgba(15,28,63,0.05)}
+.row:last-child{border:none;padding-bottom:0}.row:first-child{padding-top:0}
+.rt{font-size:0.78rem;font-weight:500;color:var(--navy)}
+.rm{font-size:0.68rem;color:var(--muted);margin-top:2px}
+.pill{font-size:0.58rem;padding:2px 7px;border-radius:3px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase}
+.p-ok{background:var(--green-bg);color:var(--green-text)}
+.p-warn{background:var(--amber-bg);color:var(--amber-text)}
+.p-red{background:var(--red-bg);color:var(--red-text)}
+.p-blue{background:#EFF6FF;color:#1E3A8A}
+.p-gray{background:var(--light);color:var(--muted2)}
+.btn{font-size:0.72rem;padding:0.38rem 0.9rem;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--navy);font-family:inherit;transition:all 0.2s;font-weight:500}
+.btn:hover{border-color:var(--navy4);background:var(--off)}
+.btn.gold{background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:700}
+.btn.gold:hover{background:var(--gold-light)}
+.btn.sm{font-size:0.63rem;padding:0.25rem 0.65rem}
+.btn.red{background:var(--red-bg);color:var(--red-text);border-color:rgba(185,28,28,0.2)}
+.f-lbl{font-size:0.62rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;display:block;margin-top:0.7rem}
+.f-in{width:100%;border:1px solid var(--border);color:var(--navy);padding:0.55rem 0.75rem;border-radius:4px;font-family:inherit;font-size:0.82rem;outline:none;transition:border-color 0.2s;background:var(--white)}
+.f-in:focus{border-color:var(--navy4)}
+.f-sel{width:100%;border:1px solid var(--border);color:var(--navy);padding:0.55rem 0.75rem;border-radius:4px;font-family:inherit;font-size:0.8rem;outline:none;background:var(--white)}
+.alert{border-radius:5px;padding:0.8rem 1rem;display:flex;align-items:center;gap:9px;margin-bottom:1rem;font-size:0.78rem}
+.alert.success{background:var(--green-bg);border:1px solid #5DCAA5;color:var(--green-text)}
+.alert.error{background:var(--red-bg);border:1px solid #F09595;color:var(--red-text)}
+.alert.info{background:#EFF6FF;border:1px solid #85B7EB;color:#1E3A8A}
+.login-wrap{min-height:calc(100vh - 40px);background:var(--light);display:flex;align-items:center;justify-content:center}
+.login-box{width:340px;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:2.2rem;box-shadow:0 4px 24px rgba(15,28,63,0.08)}
+.spinner{width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.slot{padding:0.38rem;text-align:center;border-radius:4px;cursor:pointer;font-size:0.7rem;border:1px solid var(--border);color:var(--muted);transition:all 0.18s}
+.slot:hover{border-color:var(--navy4);color:var(--navy)}
+.slot.on{border-color:var(--gold);background:rgba(201,168,76,0.1);color:var(--navy);font-weight:600}
+.slot.off{opacity:0.4;cursor:not-allowed;background:var(--light);pointer-events:none}
+.hidden{display:none}
+.rp{background:var(--off);border:1px solid var(--border);border-radius:6px;padding:1.2rem}
+.r-row{display:flex;justify-content:space-between;font-size:0.78rem;padding:0.32rem 0;border-bottom:1px solid rgba(15,28,63,0.05)}
+.r-row:last-child{border:none}
+.r-row.total{font-weight:700;font-size:0.88rem;border-top:1px solid var(--border);padding-top:0.55rem;margin-top:4px}
+.r-lbl{color:var(--muted)}
+
+/* Alice font for portal UI */
+.card-hd,.pg-title,.m-val,.nav-item,.nav-section,.section-title-portal,
+.modal-hd,.page-label,.sb-logo .name,.sb-brand,.u-name,.av-name{
+  font-family:'Alice',serif !important;
+}
+.pg-title{font-family:'Alice',serif !important;font-size:0.95rem}
+.card-hd{font-family:'Alice',serif !important}
+.m-val{font-family:'Alice',serif !important}
+.modal-hd{font-family:'Alice',serif !important}
+
+/* ELEGANT BACKGROUND THEME */
+body{background:linear-gradient(135deg,#F5F0E8 0%,#EDE8DC 50%,#F0EBE0 100%) !important;background-attachment:fixed !important}
+
+/* Warm cream cards with gold top border */
+.card{background:#FFFDF8 !important;border:1px solid rgba(201,168,76,0.2) !important;border-top:2px solid var(--gold) !important;box-shadow:0 2px 12px rgba(15,28,63,0.06) !important}
+.card:hover{box-shadow:0 4px 20px rgba(15,28,63,0.1) !important}
+
+/* Metric cards */
+.metric{background:#FFFDF8 !important;border:1px solid rgba(201,168,76,0.2) !important;border-top:2px solid var(--gold) !important;box-shadow:0 2px 8px rgba(15,28,63,0.05) !important}
+
+/* Sidebar — richer navy with subtle gold shimmer */
+.sidebar{background:linear-gradient(180deg,#0A1628 0%,#0F1C3F 40%,#0D1835 100%) !important;border-right:1px solid rgba(201,168,76,0.15) !important}
+
+/* Sidebar active item */
+.nav-item.on,.nav-item.active{background:rgba(201,168,76,0.12) !important;border-left-color:var(--gold) !important}
+
+/* Top nav */
+.top-nav{background:linear-gradient(90deg,#0A1628 0%,#0F1C3F 100%) !important;border-bottom:1px solid rgba(201,168,76,0.3) !important;box-shadow:0 2px 12px rgba(15,28,63,0.15) !important}
+
+/* Topbar inside portal */
+.topbar{background:#FFFDF8 !important;border-bottom:1px solid rgba(201,168,76,0.2) !important;box-shadow:0 1px 8px rgba(15,28,63,0.06) !important}
+
+/* Table rows */
+.tbl tr:hover td{background:rgba(201,168,76,0.04) !important}
+.tbl th{border-bottom:2px solid rgba(201,168,76,0.25) !important;color:var(--navy) !important}
+
+/* Modals */
+.modal{background:#FFFDF8 !important;border-top:3px solid var(--gold) !important;box-shadow:0 8px 40px rgba(15,28,63,0.2) !important}
+.modal-bg.show{background:rgba(10,22,40,0.65) !important}
+
+/* Login box */
+.login-box{background:#FFFDF8 !important;border-top:3px solid var(--gold) !important;box-shadow:0 8px 40px rgba(15,28,63,0.15) !important}
+.login-wrap{background:linear-gradient(135deg,#F5F0E8 0%,#EDE8DC 50%,#F0EBE0 100%) !important}
+
+/* Receipt/payslip preview box */
+.rp,.receipt-box{background:#FFFDF8 !important;border:1px solid rgba(201,168,76,0.25) !important}
+
+/* Inputs */
+.f-in,.f-sel,.f-sel2,.search-in{background:#FFFDF8 !important;border-color:rgba(201,168,76,0.25) !important}
+.f-in:focus,.f-sel:focus,.f-sel2:focus,.search-in:focus{border-color:var(--gold) !important;box-shadow:0 0 0 2px rgba(201,168,76,0.1) !important}
+
+/* Gold divider line in sidebar */
+.sb-logo{border-bottom:1px solid rgba(201,168,76,0.2) !important}
+.sb-foot,.sb-logout{border-top:1px solid rgba(201,168,76,0.12) !important}
+.sb-user{border-top:1px solid rgba(201,168,76,0.12) !important}
+
+/* Nav sections */
+.nav-section{color:rgba(201,168,76,0.5) !important}
+
+/* Alert info */
+.alert.info{background:#F5F0E8 !important;border-color:rgba(201,168,76,0.3) !important;color:var(--navy) !important}
+
+/* Content area */
+.content{background:transparent !important}
+.main{background:transparent !important}
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a class="top-nav-logo" href="index.html">A&A Music Studio <span>Teacher Portal</span></a>
+  <div class="top-nav-links">
+    <a href="index.html">Home</a>
+    <div class="nav-divider"></div>
+    <a href="student-portal.html">Student</a>
+    <a href="teacher.html" class="active">Teacher</a>
+    <a href="admin.html">Admin</a>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="loginPage" class="login-wrap">
+  <div class="login-box">
+    <div style="text-align:center;margin-bottom:1.5rem">
+      <div style="font-size:1.1rem;font-weight:700;color:var(--navy)">A&A Music Studio</div>
+      <div style="font-size:0.62rem;color:var(--muted);letter-spacing:0.18em;text-transform:uppercase;margin-top:3px">Teacher Portal</div>
+    </div>
+    <div id="loginError" class="alert error hidden"></div>
+    <label class="f-lbl">Email Address</label>
+    <input class="f-in" type="email" id="loginEmail" placeholder="your@email.com"/>
+    <label class="f-lbl" style="margin-top:0.7rem">Password</label>
+    <input class="f-in" type="password" id="loginPass" placeholder="••••••••"/>
+    <button class="btn gold" style="width:100%;padding:0.6rem;margin-top:1rem" onclick="teacherLogin()">Sign In</button>
+    <p style="font-size:0.72rem;color:var(--muted);text-align:center;margin-top:0.8rem">
+      <span style="color:var(--gold);cursor:pointer" onclick="resetPassword()">Forgot password?</span>
+    </p>
+  </div>
+</div>
+
+<!-- PORTAL -->
+<div id="portalPage" class="portal hidden">
+  <div class="sidebar">
+    <div class="sb-logo"><div class="name">Teacher Portal</div><div class="sub">A&A Music Studio</div></div>
+    <div class="nav-item active" onclick="goPage('dashboard',this)"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
+    <div class="nav-item" onclick="goPage('schedule',this)"><i class="ti ti-calendar"></i> My Schedule</div>
+    <div class="nav-item" onclick="goPage('students',this)"><i class="ti ti-users"></i> My Students</div>
+    <div class="nav-item" onclick="goPage('reschedule',this)"><i class="ti ti-clock"></i> Reschedule Requests</div>
+    <div class="nav-item" onclick="goPage('availability',this)"><i class="ti ti-clock-edit"></i> My Availability</div>
+    <div class="nav-item" onclick="goPage('payslip',this)"><i class="ti ti-receipt"></i> My Payslip</div>
+    <div class="sb-user">
+      <div class="u-av" id="teacherInitials">T</div>
+      <div><div class="u-name" id="teacherName">Loading...</div><div class="u-role" id="teacherInstrument">Teacher</div></div>
+    </div>
+    <div class="sb-logout" onclick="teacherLogout()"><i class="ti ti-logout"></i> Sign out</div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="pg-title" id="pgTitle">Dashboard</div>
+      <div id="pendingBadge" style="display:none;background:var(--red);color:white;font-size:0.65rem;padding:3px 10px;border-radius:10px;font-weight:700"></div>
+    </div>
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div class="page active" id="pg-dashboard">
+        <div class="metrics">
+          <div class="metric"><div class="m-lbl">My Students</div><div class="m-val" id="myStudentCount">—</div><div class="m-sub">Active</div></div>
+          <div class="metric"><div class="m-lbl">Lessons This Week</div><div class="m-val" id="weekLessons">—</div><div class="m-sub">Scheduled</div></div>
+          <div class="metric"><div class="m-lbl">Pending Requests</div><div class="m-val" id="pendingRequests" style="color:var(--red)">—</div><div class="m-sub" style="color:var(--amber)">Needs approval</div></div>
+          <div class="metric"><div class="m-lbl">Last Payslip</div><div class="m-val" id="lastPayslip" style="font-size:0.9rem">—</div><div class="m-sub" id="lastPayslipStatus">—</div></div>
+        </div>
+        <div class="two">
+          <div class="card">
+            <div class="card-hd">Today's Lessons</div>
+            <div id="todaysLessons"><div class="spinner"></div></div>
+          </div>
+          <div class="card">
+            <div class="card-hd">Pending Reschedule Requests <span style="color:var(--red);cursor:pointer" onclick="goPage('reschedule',document.querySelectorAll('.nav-item')[3])">Review →</span></div>
+            <div id="dashPendingRequests"><div class="spinner"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCHEDULE -->
+      <div class="page" id="pg-schedule">
+        <div class="card">
+          <div class="card-hd">My Upcoming Lessons</div>
+          <div id="mySchedule"><div class="spinner"></div></div>
+        </div>
+      </div>
+
+      <!-- MY STUDENTS -->
+      <div class="page" id="pg-students">
+        <div class="card">
+          <div class="card-hd">My Students</div>
+          <div id="myStudentsList"><div class="spinner"></div></div>
+        </div>
+      </div>
+
+      <!-- RESCHEDULE REQUESTS -->
+      <div class="page" id="pg-reschedule">
+        <div class="alert info"><i class="ti ti-info-circle"></i> Students can only reschedule at least 48 hours before their lesson. You must approve or reject all reschedule requests.</div>
+        <div class="card">
+          <div class="card-hd">Pending Reschedule Requests</div>
+          <div id="rescheduleList"><div class="spinner"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-hd">Processed Requests</div>
+          <div id="rescheduleHistory"><div class="spinner"></div></div>
+        </div>
+      </div>
+
+      <!-- AVAILABILITY -->
+      <div class="page" id="pg-availability">
+        <div class="alert info"><i class="ti ti-info-circle"></i> Set your available time slots. Students will only be able to choose from these times when rescheduling.</div>
+        <div class="two">
+          <div class="card">
+            <div class="card-hd">Set Available Slots</div>
+            <label class="f-lbl">Day</label>
+            <select class="f-sel" id="availDay">
+              <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
+              <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
+            </select>
+            <label class="f-lbl" style="margin-top:0.8rem">Available Times</label>
+            <div class="slots" style="margin-top:0.5rem">
+              <div class="slot" onclick="toggleSlot(this,'9:00 AM')">9:00 AM</div>
+              <div class="slot" onclick="toggleSlot(this,'10:00 AM')">10:00 AM</div>
+              <div class="slot" onclick="toggleSlot(this,'11:00 AM')">11:00 AM</div>
+              <div class="slot" onclick="toggleSlot(this,'12:00 PM')">12:00 PM</div>
+              <div class="slot" onclick="toggleSlot(this,'2:00 PM')">2:00 PM</div>
+              <div class="slot" onclick="toggleSlot(this,'3:00 PM')">3:00 PM</div>
+              <div class="slot" onclick="toggleSlot(this,'4:00 PM')">4:00 PM</div>
+              <div class="slot" onclick="toggleSlot(this,'5:00 PM')">5:00 PM</div>
+              <div class="slot" onclick="toggleSlot(this,'6:00 PM')">6:00 PM</div>
+              <div class="slot" onclick="toggleSlot(this,'7:00 PM')">7:00 PM</div>
+            </div>
+            <button class="btn gold" style="width:100%;margin-top:1rem" onclick="saveAvailability()">Save Availability</button>
+          </div>
+          <div class="card">
+            <div class="card-hd">Current Availability</div>
+            <div id="currentAvailability"><div class="spinner"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAYSLIP -->
+      <div class="page" id="pg-payslip">
+        <div class="two">
+          <div class="card">
+            <div class="card-hd">My Payslip History</div>
+            <div id="payslipList"><div class="spinner"></div></div>
+          </div>
+          <div>
+            <div class="rp" id="payslipPreview">
+              <div style="text-align:center;padding-bottom:0.9rem;margin-bottom:0.9rem;border-bottom:1px dashed rgba(15,28,63,0.15)">
+                <div style="font-size:1rem;font-weight:700;color:var(--navy)">A&A Music Studio</div>
+                <div style="font-size:0.65rem;color:var(--muted);margin-top:3px">worldclasssuperior.com</div>
+                <div style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:5px">Teacher Payslip</div>
+                <div style="font-size:0.72rem;font-weight:700;margin-top:3px" id="psMonth">Select a payslip</div>
+              </div>
+              <div id="psBody"><p style="font-size:0.75rem;color:var(--muted);text-align:center">Click any payslip to preview.</p></div>
+            </div>
+            <button class="btn gold" style="width:100%;margin-top:0.8rem;display:flex;align-items:center;justify-content:center;gap:5px" onclick="downloadMyPayslip()">
+              <i class="ti ti-download" style="font-size:14px"></i> Download PDF
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import { getFirestore, collection, doc, getDoc, getDocs, addDoc, updateDoc, query, where, orderBy, serverTimestamp, setDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDKlurv4LOIBkJiW3clhSJvgW4FWrnZ6Aw",
+  authDomain: "aa-worldclass-superior.firebaseapp.com",
+  projectId: "aa-worldclass-superior",
+  storageBucket: "aa-worldclass-superior.firebasestorage.app",
+  messagingSenderId: "450605849549",
+  appId: "1:450605849549:web:497899dacab0a6bc638284"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let currentTeacher = null;
+let currentTeacherData = null;
+let selectedPayslipData = null;
+let selectedSlots = [];
+
+// AUTH
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    // Check if this user is a teacher
+    const snap = await getDocs(query(collection(db,'teachers'), where('email','==',user.email)));
+    if (!snap.empty) {
+      currentTeacher = user;
+      currentTeacherData = { id: snap.docs[0].id, ...snap.docs[0].data() };
+      document.getElementById('loginPage').classList.add('hidden');
+      document.getElementById('portalPage').classList.remove('hidden');
+      const name = currentTeacherData.name || user.email;
+      document.getElementById('teacherName').textContent = name;
+      document.getElementById('teacherInitials').textContent = name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+      document.getElementById('teacherInstrument').textContent = currentTeacherData.instrument || 'Teacher';
+      loadDashboard();
+    } else {
+      showLoginError('Access denied. Your email is not registered as a teacher. Please contact A&A Music Studio admin.');
+      await signOut(auth);
+    }
+  } else {
+    document.getElementById('loginPage').classList.remove('hidden');
+    document.getElementById('portalPage').classList.add('hidden');
+  }
+});
+
+async function loadDashboard() {
+  if (!currentTeacherData) return;
+  const teacherName = currentTeacherData.name;
+
+  // My students
+  const studentsSnap = await getDocs(query(collection(db,'students'), where('teacher','==',teacherName)));
+  const myStudents = studentsSnap.docs.map(d=>({id:d.id,...d.data()}));
+  document.getElementById('myStudentCount').textContent = myStudents.filter(s=>s.status!=='Inactive').length;
+
+  // Lessons
+  const lessonsSnap = await getDocs(query(collection(db,'lessons'), where('teacherName','==',teacherName), where('status','in',['confirmed','pending approval'])));
+  const lessons = lessonsSnap.docs.map(d=>({id:d.id,...d.data()}));
+  document.getElementById('weekLessons').textContent = lessons.filter(l=>l.status==='confirmed').length;
+
+  const pending = lessons.filter(l=>l.status==='pending approval');
+  document.getElementById('pendingRequests').textContent = pending.length;
+  if (pending.length > 0) {
+    document.getElementById('pendingBadge').style.display='block';
+    document.getElementById('pendingBadge').textContent = pending.length + ' pending';
+  }
+
+  // Today's lessons
+  document.getElementById('todaysLessons').innerHTML = lessons.filter(l=>l.status==='confirmed').slice(0,3).map(l=>`
+    <div class="row" style="padding-top:0"><div><div class="rt">${l.studentName||'—'}</div><div class="rm">${l.date||'—'} · ${l.time||'—'} · ${l.instrument||'—'}</div></div>
+    <span class="pill p-ok">Confirmed</span></div>`).join('') || '<p style="font-size:0.78rem;color:var(--muted)">No lessons scheduled.</p>';
+
+  // Pending requests
+  document.getElementById('dashPendingRequests').innerHTML = pending.length ?
+    pending.map(l=>`<div class="row" style="padding-top:0"><div><div class="rt">${l.studentName||'—'}</div><div class="rm">Wants: ${l.requestedDate||l.date||'—'} · ${l.requestedTime||l.time||'—'}</div></div>
+    <div style="display:flex;gap:4px"><button class="btn sm gold" onclick="approveReschedule('${l.id}')">Approve</button><button class="btn sm red" onclick="rejectReschedule('${l.id}')">Reject</button></div></div>`).join('') :
+    '<p style="font-size:0.78rem;color:var(--muted)">No pending requests. ✓</p>';
+
+  // Schedule page
+  document.getElementById('mySchedule').innerHTML = lessons.filter(l=>l.status==='confirmed').map(l=>`
+    <div class="row" style="padding-top:0"><div><div class="rt">${l.studentName||'—'}</div><div class="rm">${l.date||'—'} · ${l.time||'—'} · ${l.instrument||'—'}</div></div>
+    <span class="pill p-ok">Confirmed</span></div>`).join('') || '<p style="font-size:0.78rem;color:var(--muted)">No upcoming lessons.</p>';
+
+  // Students page
+  document.getElementById('myStudentsList').innerHTML = myStudents.map(s=>`
+    <div class="row" style="padding-top:0">
+      <div><div class="rt">${s.name||'—'}</div><div class="rm">${s.instrument||'—'} · ${s.plan||'—'}</div></div>
+      <div style="text-align:right"><span class="pill ${s.status==='Inactive'?'p-gray':'p-ok'}">${s.status||'Active'}</span>
+      <div class="rm" style="margin-top:3px">${s.phone||s.email||'—'}</div></div>
+    </div>`).join('') || '<p style="font-size:0.78rem;color:var(--muted)">No students assigned yet.</p>';
+
+  // Reschedule requests
+  const allLessonsSnap = await getDocs(query(collection(db,'lessons'), where('teacherName','==',teacherName)));
+  const allLessons = allLessonsSnap.docs.map(d=>({id:d.id,...d.data()}));
+  const pendingAll = allLessons.filter(l=>l.status==='pending approval');
+  const processed = allLessons.filter(l=>l.rescheduleStatus && l.status!=='pending approval');
+
+  document.getElementById('rescheduleList').innerHTML = pendingAll.length ?
+    pendingAll.map(l=>`
+      <div style="border:1px solid var(--border);border-radius:5px;padding:1rem;margin-bottom:0.8rem">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div><div style="font-size:0.85rem;font-weight:700">${l.studentName||'—'}</div>
+          <div style="font-size:0.72rem;color:var(--muted);margin-top:3px">Current: ${l.date||'—'} · ${l.time||'—'}</div>
+          <div style="font-size:0.72rem;color:var(--gold);margin-top:2px">Requested: ${l.requestedDate||'—'} · ${l.requestedTime||'—'}</div></div>
+          <div style="display:flex;gap:6px">
+            <button class="btn sm gold" onclick="approveReschedule('${l.id}')">✓ Approve</button>
+            <button class="btn sm red" onclick="rejectReschedule('${l.id}')">✗ Reject</button>
+          </div>
+        </div>
+      </div>`).join('') :
+    '<p style="font-size:0.78rem;color:var(--muted)">No pending reschedule requests. ✓</p>';
+
+  document.getElementById('rescheduleHistory').innerHTML = processed.length ?
+    processed.map(l=>`<div class="row" style="padding-top:0"><div><div class="rt">${l.studentName||'—'}</div><div class="rm">${l.date} · ${l.time}</div></div>
+    <span class="pill ${l.rescheduleStatus==='approved'?'p-ok':'p-red'}">${l.rescheduleStatus||'—'}</span></div>`).join('') :
+    '<p style="font-size:0.78rem;color:var(--muted)">No processed requests yet.</p>';
+
+  // Load availability
+  loadAvailability();
+
+  // Load payslips
+  const payslipSnap = await getDocs(query(collection(db,'payroll'), where('teacherName','==',teacherName), orderBy('createdAt','desc')));
+  const payslips = payslipSnap.docs.map(d=>({id:d.id,...d.data()}));
+  if (payslips.length) {
+    document.getElementById('lastPayslip').textContent = 'RM '+(payslips[0].total||0);
+    document.getElementById('lastPayslipStatus').textContent = payslips[0].month+' · '+payslips[0].status;
+  } else {
+    document.getElementById('lastPayslip').textContent = '—';
+    document.getElementById('lastPayslipStatus').textContent = 'No records';
+  }
+  document.getElementById('payslipList').innerHTML = payslips.length ?
+    payslips.map(p=>`<div class="row" style="cursor:pointer;padding-top:0.4rem" onclick="viewPayslip('${p.id}','${p.month}',${p.lessons},${p.rate},${p.total},'${p.status}','${p.bankName||''}','${p.bankAccount||''}')">
+      <div><div class="rt">${p.month||'—'}</div><div class="rm">${p.lessons||0} lessons · RM${p.rate||0}/lesson</div></div>
+      <div style="text-align:right"><div style="font-size:0.8rem;font-weight:700">RM ${p.total||0}</div>
+      <span class="pill ${p.status==='paid'?'p-ok':'p-warn'}" style="display:inline-block;margin-top:2px">${p.status||'pending'}</span></div></div>`).join('') :
+    '<p style="font-size:0.78rem;color:var(--muted)">No payslips yet. Contact admin.</p>';
+}
+
+async function loadAvailability() {
+  if (!currentTeacherData) return;
+  const snap = await getDoc(doc(db,'availability',currentTeacherData.id));
+  if (snap.exists()) {
+    const data = snap.data();
+    const days = Object.keys(data).filter(k=>k!=='updatedAt');
+    document.getElementById('currentAvailability').innerHTML = days.length ?
+      days.map(day=>`<div class="row" style="padding-top:0.3rem"><div style="font-weight:600;font-size:0.8rem">${day}</div>
+      <div style="font-size:0.72rem;color:var(--muted)">${(data[day]||[]).join(', ')}</div></div>`).join('') :
+      '<p style="font-size:0.78rem;color:var(--muted)">No availability set yet.</p>';
+  } else {
+    document.getElementById('currentAvailability').innerHTML = '<p style="font-size:0.78rem;color:var(--muted)">No availability set yet.</p>';
+  }
+}
+
+// GLOBAL FUNCTIONS
+window.teacherLogin = async function() {
+  const email = document.getElementById('loginEmail').value;
+  const pass = document.getElementById('loginPass').value;
+  try { await signInWithEmailAndPassword(auth, email, pass); }
+  catch(e) { showLoginError(e.code==='auth/wrong-password'?'Incorrect password.':e.code==='auth/user-not-found'?'No account found.':'Login failed.'); }
+};
+
+window.teacherLogout = async function() { await signOut(auth); };
+
+window.resetPassword = async function() {
+  const email = document.getElementById('loginEmail').value;
+  if (!email) { showLoginError('Enter your email first.'); return; }
+  try { await sendPasswordResetEmail(auth, email); showLoginError('Reset email sent! Check your inbox.'); }
+  catch(e) { showLoginError('Failed to send reset email.'); }
+};
+
+function showLoginError(msg) {
+  const el = document.getElementById('loginError');
+  el.textContent = msg; el.classList.remove('hidden');
+}
+
+window.goPage = function(n, el) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+  document.getElementById('pg-'+n).classList.add('active');
+  if(el) el.classList.add('active');
+  const t={dashboard:'Dashboard',schedule:'My Schedule',students:'My Students',reschedule:'Reschedule Requests',availability:'My Availability',payslip:'My Payslip'};
+  document.getElementById('pgTitle').textContent=t[n]||n;
+};
+
+window.toggleSlot = function(el, time) {
+  el.classList.toggle('on');
+  if (el.classList.contains('on')) { if(!selectedSlots.includes(time)) selectedSlots.push(time); }
+  else { selectedSlots = selectedSlots.filter(s=>s!==time); }
+};
+
+window.saveAvailability = async function() {
+  if (!currentTeacherData) return;
+  const day = document.getElementById('availDay').value;
+  if (!selectedSlots.length) { alert('Please select at least one time slot.'); return; }
+  try {
+    const ref = doc(db,'availability',currentTeacherData.id);
+    const snap = await getDoc(ref);
+    const existing = snap.exists() ? snap.data() : {};
+    existing[day] = selectedSlots;
+    existing.updatedAt = serverTimestamp();
+    await setDoc(ref, existing);
+    alert('Availability saved for '+day+'!');
+    selectedSlots = [];
+    document.querySelectorAll('.slot').forEach(s=>s.classList.remove('on'));
+    await loadAvailability();
+  } catch(e) { alert('Error: '+e.message); }
+};
+
+window.approveReschedule = async function(lessonId) {
+  try {
+    const lessonSnap = await getDoc(doc(db,'lessons',lessonId));
+    const lesson = lessonSnap.data();
+    await updateDoc(doc(db,'lessons',lessonId), {
+      date: lesson.requestedDate || lesson.date,
+      time: lesson.requestedTime || lesson.time,
+      status: 'confirmed',
+      rescheduleStatus: 'approved',
+      updatedAt: serverTimestamp()
+    });
+    alert('Reschedule approved! Student has been notified.');
+    await loadDashboard();
+  } catch(e) { alert('Error: '+e.message); }
+};
+
+window.rejectReschedule = async function(lessonId) {
+  const reason = prompt('Reason for rejection (optional):','Time slot not available');
+  try {
+    await updateDoc(doc(db,'lessons',lessonId), {
+      status: 'confirmed',
+      rescheduleStatus: 'rejected',
+      rejectionReason: reason||'',
+      updatedAt: serverTimestamp()
+    });
+    alert('Reschedule rejected. Student will be notified.');
+    await loadDashboard();
+  } catch(e) { alert('Error: '+e.message); }
+};
+
+window.viewPayslip = function(id, month, lessons, rate, total, status, bankName, bankAccount) {
+  selectedPayslipData = {id, month, lessons, rate, total, status, bankName, bankAccount, teacher: currentTeacherData?.name||''};
+  document.getElementById('psMonth').textContent = month;
+  document.getElementById('psBody').innerHTML = `
+    <div class="r-row"><span class="r-lbl">Teacher</span><span>${currentTeacherData?.name||'—'}</span></div>
+    <div class="r-row"><span class="r-lbl">Month</span><span>${month}</span></div>
+    <div class="r-row"><span class="r-lbl">Lessons Taught</span><span>${lessons}</span></div>
+    <div class="r-row"><span class="r-lbl">Rate per Lesson</span><span>RM ${rate}</span></div>
+    <div class="r-row total"><span>Net Pay</span><span>RM ${total}</span></div>
+    <div style="text-align:center;margin-top:0.8rem"><span class="pill ${status==='paid'?'p-ok':'p-warn'}">${status==='paid'?'Payment Received ✓':'Pending Payment'}</span></div>`;
+};
+
+window.downloadMyPayslip = function() {
+  if (!selectedPayslipData) { alert('Please select a payslip first.'); return; }
+  const p = selectedPayslipData;
+  if (typeof window.jspdf === 'undefined') { alert('PDF loading, try again.'); return; }
+  const {jsPDF} = window.jspdf;
+  const doc2 = new jsPDF({unit:'mm',format:'a4'});
+  doc2.setFillColor(15,28,63); doc2.rect(0,0,210,38,'F');
+  doc2.setTextColor(201,168,76); doc2.setFontSize(16); doc2.setFont('helvetica','bold');
+  doc2.text('A&A Music Studio',105,15,{align:'center'});
+  doc2.setFontSize(8); doc2.setFont('helvetica','normal'); doc2.setTextColor(180,180,180);
+  doc2.text('worldclasssuperior.com',105,23,{align:'center'});
+  doc2.setTextColor(15,28,63); doc2.setFontSize(14); doc2.setFont('helvetica','bold');
+  doc2.text('TEACHER PAYSLIP',105,48,{align:'center'});
+  doc2.setFontSize(9); doc2.setTextColor(130,130,130); doc2.setFont('helvetica','normal');
+  doc2.text('Month: '+p.month,105,55,{align:'center'});
+  doc2.setDrawColor(201,168,76); doc2.setLineWidth(0.5); doc2.line(20,59,190,59);
+  const rows=[['Teacher Name',p.teacher],['Bank Name',p.bankName||'—'],['Bank Account',p.bankAccount||'—'],['Lessons Taught',p.lessons+' lessons'],['Rate per Lesson','RM '+p.rate]];
+  let y=68;
+  rows.forEach(r=>{doc2.setFontSize(9);doc2.setFont('helvetica','normal');doc2.setTextColor(130,130,140);doc2.text(r[0],25,y);doc2.setTextColor(15,28,63);doc2.setFont('helvetica','bold');doc2.text(String(r[1]),110,y);y+=9;});
+  doc2.setDrawColor(201,168,76);doc2.line(20,y+2,190,y+2);y+=10;
+  doc2.setFontSize(13);doc2.setTextColor(15,28,63);doc2.text('Net Pay',25,y);doc2.setTextColor(201,168,76);doc2.text('RM '+(p.total||0).toFixed(2),110,y);
+  const sc = p.status==='paid'?[230,244,237]:[254,243,220];
+  const tc = p.status==='paid'?[20,90,53]:[122,74,6];
+  doc2.setFillColor(...sc);doc2.roundedRect(60,y+7,90,10,2,2,'F');
+  doc2.setFontSize(9);doc2.setTextColor(...tc);doc2.setFont('helvetica','bold');
+  doc2.text(p.status==='paid'?'PAYMENT RECEIVED':'PAYMENT PENDING',105,y+14,{align:'center'});
+  doc2.setFillColor(15,28,63);doc2.rect(0,270,210,27,'F');doc2.setTextColor(180,180,180);doc2.setFontSize(8);
+  doc2.text('A&A Music Studio  ·  worldclasssuperior.com',105,283,{align:'center'});
+  doc2.save('Payslip-'+p.month.replace(/\s/g,'-')+'.pdf');
+};
+</script>
+</body>
+</html>

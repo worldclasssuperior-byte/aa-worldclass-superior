@@ -1,0 +1,1430 @@
+<!-- AA Worldclass Superior Admin v3.0 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>A&A Worldclass Superior — Admin</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Alice&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#0F1C3F;--navy2:#152040;--navy3:#1E2F5A;--navy4:#253570;--gold:#C9A84C;--gold-light:#E2C97E;--white:#FFFFFF;--off:#F8F6F0;--light:#EEF0F7;--muted:#8A95B0;--muted2:#6B7894;--border:rgba(15,28,63,0.1);--green:#1E7A4A;--green-bg:#E6F4ED;--green-text:#145A35;--amber:#9A6200;--amber-bg:#FEF3DC;--amber-text:#7A4A06;--red:#B91C1C;--red-bg:#FEE2E2;--red-text:#7F1D1D;--blue:#1D4ED8;--blue-bg:#EFF6FF;--blue-text:#1E3A8A}
+/* UNIFIED TOP NAV */
+.top-nav{background:var(--navy);padding:0 1.8rem;height:52px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(201,168,76,0.25);position:sticky;top:0;z-index:200}
+.top-nav-logo{font-family:'Inter',sans-serif;font-size:1rem;font-weight:400;color:var(--gold);text-decoration:none;letter-spacing:0.03em}
+.top-nav-logo span{color:rgba(255,255,255,0.5);font-size:0.7rem;margin-left:0.5rem;font-family:'Inter',sans-serif;letter-spacing:0.1em;text-transform:uppercase;vertical-align:middle}
+.top-nav-links{display:flex;align-items:center;gap:0.2rem}
+.top-nav-links a{color:rgba(255,255,255,0.45);font-size:0.7rem;text-decoration:none;letter-spacing:0.12em;text-transform:uppercase;font-family:'Inter',sans-serif;padding:0.35rem 0.75rem;border-radius:3px;transition:all 0.2s}
+.top-nav-links a:hover{color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.05)}
+.top-nav-links a.active{color:var(--gold);background:rgba(201,168,76,0.1)}
+.top-nav-links .nav-divider{width:1px;height:18px;background:rgba(255,255,255,0.1);margin:0 0.3rem}
+body{background:var(--light);font-family:'Arial',sans-serif;color:var(--navy);min-height:100vh}
+.top-nav a{color:var(--gold);font-size:0.85rem;font-weight:700;text-decoration:none}
+.top-nav-links a{color:rgba(255,255,255,0.5);font-size:0.75rem;text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;margin-left:1rem}
+.top-nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px}
+.wrap{display:flex;min-height:calc(100vh - 40px)}
+.sidebar{width:195px;min-width:195px;background:var(--navy);display:flex;flex-direction:column;position:fixed;top:40px;left:0;height:calc(100vh - 40px)}
+.sb-top{padding:1.2rem;border-bottom:1px solid rgba(255,255,255,0.07)}
+.sb-brand{font-size:0.95rem;font-weight:400;color:var(--gold);font-family:'Alice',serif}
+.sb-role{font-size:0.6rem;color:rgba(255,255,255,0.35);letter-spacing:0.18em;text-transform:uppercase;margin-top:2px}
+.nav-section{font-size:0.58rem;color:rgba(255,255,255,0.25);letter-spacing:0.2em;text-transform:uppercase;padding:1rem 1.2rem 0.4rem}
+.nav-item{display:flex;align-items:center;gap:8px;padding:0.6rem 1.2rem;cursor:pointer;font-size:0.76rem;color:rgba(255,255,255,0.55);border-left:2px solid transparent;transition:all 0.2s}
+.nav-item:hover{color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.04)}
+.nav-item.on{color:var(--gold);border-left-color:var(--gold);background:rgba(201,168,76,0.08)}
+.nav-item i{font-size:14px}
+.sb-foot{margin-top:auto;padding:1rem 1.2rem;border-top:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:8px}
+.sb-logout{padding:0.6rem 1.2rem;cursor:pointer;font-size:0.72rem;color:rgba(255,100,100,0.7);display:flex;align-items:center;gap:8px;border-top:1px solid rgba(255,255,255,0.07)}
+.sb-logout:hover{color:#ff6b6b}
+.av{width:28px;height:28px;border-radius:50%;background:rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:var(--gold)}
+.av-name{font-size:0.73rem;color:rgba(255,255,255,0.75)}
+.main{margin-left:195px;flex:1;display:flex;flex-direction:column}
+.topbar{background:var(--white);padding:0.85rem 1.4rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:40px;z-index:10}
+.pg-title{font-size:0.88rem;font-weight:700;color:var(--navy)}
+.content{padding:1.2rem}
+.page{display:none}.page.on{display:block}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.2rem}
+.metric{background:var(--white);border:1px solid var(--border);padding:0.9rem 1rem;border-radius:6px}
+.m-lbl{font-size:0.6rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:5px}
+.m-val{font-size:1.25rem;font-weight:700;color:var(--navy)}
+.m-up{font-size:0.63rem;color:var(--green);margin-top:3px}
+.m-dn{font-size:0.63rem;color:var(--red);margin-top:3px}
+.m-n{font-size:0.63rem;color:var(--muted);margin-top:3px}
+.card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:1rem;margin-bottom:1rem}
+.card-hd{font-size:0.72rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.85rem;display:flex;align-items:center;justify-content:space-between}
+.card-hd span{font-size:0.68rem;color:var(--gold);cursor:pointer;font-weight:400;text-transform:none;letter-spacing:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+.tbl{width:100%;border-collapse:collapse;font-size:0.75rem;table-layout:fixed}
+.tbl th{font-size:0.6rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;padding:0 0.7rem 0.6rem;text-align:left;font-weight:500;border-bottom:1px solid var(--border)}
+.tbl td{padding:0.58rem 0.7rem;border-bottom:1px solid rgba(15,28,63,0.04);vertical-align:middle}
+.tbl tr:last-child td{border:none}
+.tbl tr:hover td{background:var(--off)}
+.rt{font-size:0.78rem;font-weight:500;color:var(--navy)}
+.rm{font-size:0.68rem;color:var(--muted)}
+.pill{font-size:0.58rem;padding:2px 7px;border-radius:3px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase}
+.p-ok{background:var(--green-bg);color:var(--green-text)}
+.p-warn{background:var(--amber-bg);color:var(--amber-text)}
+.p-red{background:var(--red-bg);color:var(--red-text)}
+.p-blue{background:var(--blue-bg);color:var(--blue-text)}
+.p-gray{background:var(--light);color:var(--muted2)}
+.btn{font-size:0.7rem;padding:0.35rem 0.85rem;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--navy);font-family:inherit;transition:all 0.2s;font-weight:500}
+.btn:hover{border-color:var(--navy4);background:var(--off)}
+.btn.gold{background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:700}
+.btn.gold:hover{background:var(--gold-light)}
+.btn.red-btn{background:var(--red-bg);color:var(--red-text);border-color:rgba(185,28,28,0.2)}
+.btn.sm{font-size:0.63rem;padding:0.25rem 0.65rem}
+.search-row{display:flex;gap:8px;margin-bottom:1rem;align-items:center;flex-wrap:wrap}
+.search-in{border:1px solid var(--border);border-radius:4px;padding:0.45rem 0.75rem;font-size:0.78rem;color:var(--navy);font-family:inherit;outline:none;background:var(--white);flex:1;min-width:150px;transition:border-color 0.2s}
+.search-in:focus{border-color:var(--navy4)}
+.f-sel{border:1px solid var(--border);border-radius:4px;padding:0.45rem 0.75rem;font-size:0.75rem;color:var(--navy);font-family:inherit;outline:none;background:var(--white)}
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(15,28,63,0.5);z-index:200;align-items:flex-start;justify-content:center;padding-top:60px;overflow-y:auto}
+.modal-bg.show{display:flex}
+.modal{background:var(--white);border-radius:8px;padding:1.5rem;width:420px;max-width:94vw;border:1px solid var(--border);margin-bottom:2rem}
+.modal-hd{font-size:0.9rem;font-weight:700;color:var(--navy);margin-bottom:1.2rem;display:flex;justify-content:space-between;align-items:center}
+.modal-close{cursor:pointer;color:var(--muted);font-size:1.3rem;line-height:1}
+.f-lbl{font-size:0.62rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;display:block;margin-top:0.7rem}
+.f-in{width:100%;border:1px solid var(--border);border-radius:4px;padding:0.5rem 0.7rem;font-family:inherit;font-size:0.8rem;color:var(--navy);outline:none;transition:border-color 0.2s;background:var(--white)}
+.f-in:focus{border-color:var(--navy4)}
+.f-sel2{width:100%;border:1px solid var(--border);border-radius:4px;padding:0.5rem 0.7rem;font-family:inherit;font-size:0.8rem;color:var(--navy);outline:none;background:var(--white)}
+/* RECEIPT */
+.rp{background:var(--off);border:1px solid var(--border);border-radius:6px;padding:1.2rem}
+.r-row{display:flex;justify-content:space-between;font-size:0.78rem;padding:0.32rem 0;border-bottom:1px solid rgba(15,28,63,0.05)}
+.r-row:last-child{border:none}
+.r-row.total{font-weight:700;font-size:0.88rem;border-top:1px solid var(--border);padding-top:0.55rem;margin-top:4px}
+.r-lbl{color:var(--muted)}
+.bar-wrap{background:var(--light);border-radius:3px;height:6px;flex:1;overflow:hidden;margin:0 8px}
+.bar-fill{height:100%;background:var(--gold);border-radius:3px}
+.rev-bar{display:flex;align-items:center;margin-bottom:8px}
+.rev-m{font-size:0.68rem;color:var(--muted);width:28px}
+.rev-amt{font-size:0.68rem;color:var(--navy);font-weight:500;margin-left:6px;min-width:56px;text-align:right}
+/* ALERT */
+.alert{border-radius:5px;padding:0.8rem 1rem;display:flex;align-items:center;gap:9px;margin-bottom:1rem;font-size:0.78rem}
+.alert.success{background:var(--green-bg);border:1px solid #5DCAA5;color:var(--green-text)}
+.alert.error{background:var(--red-bg);border:1px solid #F09595;color:var(--red-text)}
+/* LOGIN */
+.login-wrap{min-height:calc(100vh - 40px);background:var(--light);display:flex;align-items:center;justify-content:center}
+.login-box{width:340px;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:2.2rem;box-shadow:0 4px 24px rgba(15,28,63,0.08)}
+.spinner{width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-row{display:flex;align-items:center;gap:8px;padding:0.5rem 0;font-size:0.78rem;color:var(--muted)}
+.hidden{display:none !important}
+/* ACCESS DENIED */
+.access-denied{display:none;align-items:center;justify-content:center;min-height:calc(100vh - 52px);flex-direction:column;gap:1rem}
+
+/* Alice font for portal UI */
+.card-hd,.pg-title,.m-val,.nav-item,.nav-section,.section-title-portal,
+.modal-hd,.page-label,.sb-logo .name,.sb-brand,.u-name,.av-name{
+  font-family:'Alice',serif !important;
+}
+.pg-title{font-family:'Alice',serif !important;font-size:0.95rem}
+.card-hd{font-family:'Alice',serif !important}
+.m-val{font-family:'Alice',serif !important}
+.modal-hd{font-family:'Alice',serif !important}
+
+/* ELEGANT BACKGROUND THEME */
+body{background:linear-gradient(135deg,#F5F0E8 0%,#EDE8DC 50%,#F0EBE0 100%) !important;background-attachment:fixed !important}
+
+/* Warm cream cards with gold top border */
+.card{background:#FFFDF8 !important;border:1px solid rgba(201,168,76,0.2) !important;border-top:2px solid var(--gold) !important;box-shadow:0 2px 12px rgba(15,28,63,0.06) !important}
+.card:hover{box-shadow:0 4px 20px rgba(15,28,63,0.1) !important}
+
+/* Metric cards */
+.metric{background:#FFFDF8 !important;border:1px solid rgba(201,168,76,0.2) !important;border-top:2px solid var(--gold) !important;box-shadow:0 2px 8px rgba(15,28,63,0.05) !important}
+
+/* Sidebar — richer navy with subtle gold shimmer */
+.sidebar{background:linear-gradient(180deg,#0A1628 0%,#0F1C3F 40%,#0D1835 100%) !important;border-right:1px solid rgba(201,168,76,0.15) !important}
+
+/* Sidebar active item */
+.nav-item.on,.nav-item.active{background:rgba(201,168,76,0.12) !important;border-left-color:var(--gold) !important}
+
+/* Top nav */
+.top-nav{background:linear-gradient(90deg,#0A1628 0%,#0F1C3F 100%) !important;border-bottom:1px solid rgba(201,168,76,0.3) !important;box-shadow:0 2px 12px rgba(15,28,63,0.15) !important}
+
+/* Topbar inside portal */
+.topbar{background:#FFFDF8 !important;border-bottom:1px solid rgba(201,168,76,0.2) !important;box-shadow:0 1px 8px rgba(15,28,63,0.06) !important}
+
+/* Table rows */
+.tbl tr:hover td{background:rgba(201,168,76,0.04) !important}
+.tbl th{border-bottom:2px solid rgba(201,168,76,0.25) !important;color:var(--navy) !important}
+
+/* Modals */
+.modal{background:#FFFDF8 !important;border-top:3px solid var(--gold) !important;box-shadow:0 8px 40px rgba(15,28,63,0.2) !important}
+.modal-bg.show{background:rgba(10,22,40,0.65) !important}
+
+/* Login box */
+.login-box{background:#FFFDF8 !important;border-top:3px solid var(--gold) !important;box-shadow:0 8px 40px rgba(15,28,63,0.15) !important}
+.login-wrap{background:linear-gradient(135deg,#F5F0E8 0%,#EDE8DC 50%,#F0EBE0 100%) !important}
+
+/* Receipt/payslip preview box */
+.rp,.receipt-box{background:#FFFDF8 !important;border:1px solid rgba(201,168,76,0.25) !important}
+
+/* Inputs */
+.f-in,.f-sel,.f-sel2,.search-in{background:#FFFDF8 !important;border-color:rgba(201,168,76,0.25) !important}
+.f-in:focus,.f-sel:focus,.f-sel2:focus,.search-in:focus{border-color:var(--gold) !important;box-shadow:0 0 0 2px rgba(201,168,76,0.1) !important}
+
+/* Gold divider line in sidebar */
+.sb-logo{border-bottom:1px solid rgba(201,168,76,0.2) !important}
+.sb-foot,.sb-logout{border-top:1px solid rgba(201,168,76,0.12) !important}
+.sb-user{border-top:1px solid rgba(201,168,76,0.12) !important}
+
+/* Nav sections */
+.nav-section{color:rgba(201,168,76,0.5) !important}
+
+/* Alert info */
+.alert.info{background:#F5F0E8 !important;border-color:rgba(201,168,76,0.3) !important;color:var(--navy) !important}
+
+/* Content area */
+.content{background:transparent !important}
+.main{background:transparent !important}
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a class="top-nav-logo" href="index.html">A&A Music Studio <span>Admin Dashboard</span></a>
+  <div class="top-nav-links">
+    <a href="index.html">Home</a>
+    <div class="nav-divider"></div>
+    <a href="student-portal.html">Student</a>
+    <a href="teacher.html">Teacher</a>
+    <a href="admin.html" class="active">Admin</a>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div id="loginPage" class="login-wrap">
+  <div class="login-box">
+    <div style="text-align:center;margin-bottom:1.5rem">
+      <div style="font-size:1.1rem;font-weight:700;color:var(--navy)">A&A Admin</div>
+      <div style="font-size:0.62rem;color:var(--muted);letter-spacing:0.18em;text-transform:uppercase;margin-top:3px">Studio Management</div>
+    </div>
+    <div id="adminAuthError" class="alert error hidden"></div>
+    <label class="f-lbl">Admin Email</label>
+    <input class="f-in" type="email" id="adminEmail" placeholder="admin@aaworldclass.com"/>
+    <label class="f-lbl" style="margin-top:0.7rem">Password</label>
+    <input class="f-in" type="password" id="adminPass" placeholder="••••••••"/>
+    <button class="btn gold" style="width:100%;padding:0.6rem;margin-top:1rem" onclick="adminLogin()">Sign in as Admin</button>
+  </div>
+</div>
+
+<!-- ACCESS DENIED -->
+<div id="accessDenied" class="access-denied hidden">
+  <div style="font-size:1.5rem">🔒</div>
+  <div style="font-size:0.9rem;font-weight:700;color:var(--navy)">Access Denied</div>
+  <div style="font-size:0.78rem;color:var(--muted)">This account does not have admin privileges.</div>
+  <button class="btn" onclick="adminLogout()">Sign out</button>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div id="adminPage" class="wrap hidden">
+  <div class="sidebar">
+    <div class="sb-top"><div class="sb-brand">A&A Admin</div><div class="sb-role">Studio Management</div></div>
+    <div class="nav-section">Overview</div>
+    <div class="nav-item on" onclick="go('overview',this)"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
+    <div class="nav-section">Manage</div>
+    <div class="nav-item" onclick="go('students',this)"><i class="ti ti-users"></i> Students</div>
+    <div class="nav-item" onclick="go('teachers',this)"><i class="ti ti-school"></i> Teachers</div>
+    <div class="nav-item" onclick="go('schedule',this)"><i class="ti ti-calendar"></i> Schedule</div>
+    <div class="nav-section">Finance</div>
+    <div class="nav-item" onclick="go('payments',this)"><i class="ti ti-credit-card"></i> Payments</div>
+    <div class="nav-item" onclick="go('receipts',this)"><i class="ti ti-receipt"></i> Receipts & PDF</div>
+    <div class="nav-section">Finance</div>
+    <div class="nav-item" onclick="go('payroll',this)"><i class="ti ti-cash"></i> Payroll</div>
+    <div class="nav-section">More</div>
+    <div class="nav-item" onclick="go('events',this)"><i class="ti ti-calendar-event"></i> Events</div>
+    <div class="nav-item" onclick="go('shop',this)"><i class="ti ti-shopping-bag"></i> Shop Orders</div>
+    <div class="sb-foot"><div class="av" id="adminInitials">A</div><div><div class="av-name" id="adminName">Admin</div></div></div>
+    <div class="sb-logout" onclick="adminLogout()"><i class="ti ti-logout"></i> Sign out</div>
+  </div>
+  <div class="main">
+    <div class="topbar">
+      <div class="pg-title" id="pgTitle">Dashboard</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="btn sm gold" onclick="go('receipts',document.querySelectorAll('.nav-item')[5])">+ New Receipt</button>
+        <i class="ti ti-bell" style="font-size:17px;color:var(--muted);cursor:pointer"></i>
+      </div>
+    </div>
+    <div class="content">
+
+      <!-- OVERVIEW -->
+      <div class="page on" id="pg-overview">
+        <div class="metrics">
+          <div class="metric"><div class="m-lbl">Total Students</div><div class="m-val" id="totalStudents"><span class="spinner"></span></div><div class="m-up" id="studentsChange">Loading...</div></div>
+          <div class="metric"><div class="m-lbl">Monthly Revenue</div><div class="m-val" id="monthRevenue"><span class="spinner"></span></div><div class="m-up" id="revenueChange">Loading...</div></div>
+          <div class="metric"><div class="m-lbl">Lessons Today</div><div class="m-val" id="lessonsToday"><span class="spinner"></span></div><div class="m-n" id="lessonsTodayNote">Loading...</div></div>
+          <div class="metric"><div class="m-lbl">Pending Payments</div><div class="m-val" id="pendingPayments"><span class="spinner"></span></div><div class="m-dn" id="pendingAmount">Loading...</div></div>
+        </div>
+        <div class="two">
+          <div class="card"><div class="card-hd">Recent Students <span onclick="go('students',document.querySelectorAll('.nav-item')[1])">View all →</span></div>
+            <div id="recentStudentsList"><div class="loading-row"><span class="spinner"></span> Loading...</div></div>
+          </div>
+          <div class="card"><div class="card-hd">Pending Payments <span onclick="go('payments',document.querySelectorAll('.nav-item')[4])">Manage →</span></div>
+            <div id="pendingPaymentsList"><div class="loading-row"><span class="spinner"></span> Loading...</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STUDENTS -->
+      <div class="page" id="pg-students">
+        <div class="search-row">
+          <input class="search-in" id="studentSearch" placeholder="Search by name or email..." oninput="filterStudents()"/>
+          <select class="f-sel" id="instrumentFilter" onchange="filterStudents()">
+            <option value="">All instruments</option>
+            <option>Piano</option><option>Violin</option><option>Singing</option>
+          </select>
+          <button class="btn gold sm" onclick="openModal('addStudent')">+ Add Student</button>
+        </div>
+        <div class="card">
+          <table class="tbl">
+            <thead><tr>
+              <th style="width:20%">Name</th><th style="width:18%">Instrument</th>
+              <th style="width:18%">Teacher</th><th style="width:12%">Plan</th>
+              <th style="width:12%">Payment</th><th style="width:10%">Status</th>
+              <th style="width:10%">Action</th>
+            </tr></thead>
+            <tbody id="studentsTableBody"><tr><td colspan="7"><div class="loading-row" style="padding:0.5rem"><span class="spinner"></span> Loading students...</div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TEACHERS -->
+      <div class="page" id="pg-teachers">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:1rem">
+          <button class="btn gold sm" onclick="openModal('addTeacher')">+ Add Teacher</button>
+        </div>
+        <div class="three" id="teachersGrid"><div class="loading-row"><span class="spinner"></span> Loading teachers...</div></div>
+      </div>
+
+      <!-- SCHEDULE -->
+      <div class="page" id="pg-schedule">
+        <div class="search-row">
+          <input class="search-in" id="schedStudentSearch" placeholder="Search student name..." oninput="filterSchedule()" style="max-width:220px"/>
+          <select class="f-sel" id="schedTeacherFilter" onchange="filterSchedule()"><option value="">All teachers</option></select>
+          <select class="f-sel" id="schedStatusFilter" onchange="filterSchedule()">
+            <option value="">All status</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="pending approval">Pending Approval</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+          <button class="btn gold sm" onclick="openModal('addLesson')">+ Add Lesson</button>
+        </div>
+
+        <!-- PENDING RESCHEDULE ALERT -->
+        <div id="pendingRescheduleAlert" class="hidden" style="background:var(--amber-bg);border:1px solid #E9A825;border-radius:5px;padding:0.8rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:8px;font-size:0.78rem;color:var(--amber-text)">
+          <i class="ti ti-clock-exclamation" style="font-size:16px"></i>
+          <span id="pendingRescheduleText">Loading...</span>
+        </div>
+
+        <!-- RESCHEDULE REQUESTS -->
+        <div class="card" id="rescheduleRequestsCard">
+          <div class="card-hd" style="color:var(--amber)">⏳ Pending Reschedule Requests <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0;font-size:0.7rem">Waiting for teacher approval</span></div>
+          <div id="rescheduleRequestsList"><div class="loading-row"><span class="spinner"></span> Loading...</div></div>
+        </div>
+
+        <!-- ALL LESSONS TABLE -->
+        <div class="card">
+          <div class="card-hd">All Student Lessons
+            <div style="display:flex;gap:8px">
+              <span class="pill p-ok" id="countConfirmed">—</span>
+              <span class="pill p-warn" id="countPending">—</span>
+              <span class="pill p-gray" id="countCompleted">—</span>
+            </div>
+          </div>
+          <table class="tbl">
+            <thead><tr>
+              <th style="width:16%">Student</th>
+              <th style="width:15%">Teacher</th>
+              <th style="width:12%">Instrument</th>
+              <th style="width:16%">Scheduled Date & Time</th>
+              <th style="width:16%">Reschedule Request</th>
+              <th style="width:12%">Status</th>
+              <th style="width:13%">Action</th>
+            </tr></thead>
+            <tbody id="scheduleTableBody"><tr><td colspan="7"><div class="loading-row" style="padding:0.5rem"><span class="spinner"></span> Loading...</div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PAYMENTS -->
+      <div class="page" id="pg-payments">
+        <div class="metrics" style="grid-template-columns:repeat(3,1fr)">
+          <div class="metric"><div class="m-lbl">Collected This Month</div><div class="m-val" id="collectedMonth">RM —</div><div class="m-up" id="collectedPct">Loading...</div></div>
+          <div class="metric"><div class="m-lbl">Outstanding</div><div class="m-val" id="outstandingTotal">RM —</div><div class="m-dn" id="outstandingCount">Loading...</div></div>
+          <div class="metric"><div class="m-lbl">Total Transactions</div><div class="m-val" id="totalTransactions">—</div><div class="m-n">All time</div></div>
+        </div>
+        <div class="search-row">
+          <input class="search-in" id="paymentSearch" placeholder="Search student name..." oninput="filterPayments()"/>
+          <select class="f-sel" id="paymentStatusFilter" onchange="filterPayments()">
+            <option value="">All status</option><option value="paid">Paid</option><option value="pending">Pending</option>
+          </select>
+          <button class="btn gold sm" onclick="openModal('addPayment')">+ Add Payment</button>
+        </div>
+        <div class="card">
+          <table class="tbl">
+            <thead><tr><th style="width:18%">Student</th><th style="width:22%">Description</th><th style="width:12%">Amount</th><th style="width:13%">Method</th><th style="width:13%">Date</th><th style="width:10%">Status</th><th style="width:12%">Action</th></tr></thead>
+            <tbody id="paymentsTableBody"><tr><td colspan="7"><div class="loading-row" style="padding:0.5rem"><span class="spinner"></span> Loading...</div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- RECEIPTS -->
+      <div class="page" id="pg-receipts">
+        <div class="two">
+          <div class="card"><div class="card-hd">Generate Receipt</div>
+            <label class="f-lbl">Student</label>
+            <select class="f-sel2" id="rcpStudent"><option value="">Select student...</option></select>
+            <label class="f-lbl">Description</label>
+            <input class="f-in" id="rcpDesc" value="Monthly Fee — June 2026"/>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div><label class="f-lbl">Amount (RM)</label><input class="f-in" id="rcpAmt" type="number" value="200"/></div>
+              <div><label class="f-lbl">Payment Method</label>
+                <select class="f-sel2" id="rcpMethod"><option>FPX — Maybank</option><option>FPX — CIMB</option><option>FPX — RHB</option><option>Touch 'n Go</option><option>Cash</option></select>
+              </div>
+            </div>
+            <label class="f-lbl">Date</label>
+            <input class="f-in" id="rcpDate" value="25 May 2026"/>
+            <div style="display:flex;gap:8px;margin-top:1rem">
+              <button class="btn gold" style="flex:1" onclick="genReceipt()">Preview Receipt</button>
+              <button class="btn" style="flex:1" onclick="saveReceiptToFirestore()">Save & Record</button>
+            </div>
+          </div>
+          <div>
+            <div class="rp" id="rcpPreview">
+              <div style="text-align:center;padding-bottom:0.9rem;margin-bottom:0.9rem;border-bottom:1px dashed rgba(15,28,63,0.15)">
+                <div style="font-size:1rem;font-weight:700;color:var(--navy)">A&A Worldclass Superior</div>
+                <div style="font-size:0.65rem;color:var(--muted);margin-top:3px">worldclasssuperior.com</div>
+                <div style="font-size:0.62rem;color:var(--muted);margin-top:5px;letter-spacing:0.1em;text-transform:uppercase">Official Receipt</div>
+                <div style="font-size:0.72rem;font-weight:700;margin-top:3px" id="previewNo">—</div>
+              </div>
+              <div id="previewBody">
+                <div class="r-row"><span class="r-lbl">Student</span><span id="pStudent">—</span></div>
+                <div class="r-row"><span class="r-lbl">Description</span><span id="pDesc">—</span></div>
+                <div class="r-row"><span class="r-lbl">Date</span><span id="pDate">—</span></div>
+                <div class="r-row"><span class="r-lbl">Method</span><span id="pMethod">—</span></div>
+                <div class="r-row total"><span>Total</span><span id="pAmt">—</span></div>
+              </div>
+              <div style="text-align:center;margin-top:1rem"><span class="pill p-ok" style="font-size:0.65rem;padding:3px 14px">Payment Confirmed</span></div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:0.8rem">
+              <button class="btn gold" style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px" onclick="downloadPDF()"><i class="ti ti-download" style="font-size:14px"></i> Download PDF</button>
+              <button class="btn" style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px" onclick="emailReceipt()"><i class="ti ti-mail" style="font-size:14px"></i> Email to Student</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAYROLL -->
+      <div class="page" id="pg-payroll">
+        <div class="metrics" style="grid-template-columns:repeat(3,1fr)">
+          <div class="metric"><div class="m-lbl">Commission Paid This Month</div><div class="m-val" id="payrollTotal">RM —</div><div class="m-up" id="payrollPaidCount">Loading...</div></div>
+          <div class="metric"><div class="m-lbl">Commission Pending</div><div class="m-val" id="payrollPending">RM —</div><div class="m-dn" id="payrollPendingCount">Loading...</div></div>
+          <div class="metric"><div class="m-lbl">Total Teachers</div><div class="m-val" id="payrollTeachers">—</div><div class="m-n">Active</div></div>
+        </div>
+        <div class="alert info" style="font-size:0.75rem;padding:0.6rem 0.8rem;background:#EFF6FF;border:1px solid #85B7EB;color:#1E3A8A;border-radius:4px;margin-bottom:1rem">
+          <i class="ti ti-info-circle"></i> Teacher commission is based on student payments received. If student has not paid, teacher commission is not generated.
+        </div>
+        <div class="search-row">
+          <select class="f-sel" id="payrollMonthFilter" onchange="loadPayroll()">
+            <option value="">All months</option>
+            <option>January 2026</option><option>February 2026</option><option>March 2026</option>
+            <option>April 2026</option><option>May 2026</option><option>June 2026</option>
+            <option>July 2026</option><option>August 2026</option><option>September 2026</option>
+            <option>October 2026</option><option>November 2026</option><option>December 2026</option>
+          </select>
+          <button class="btn gold sm" onclick="openModal('addPayroll')">+ Calculate Commission</button>
+        </div>
+        <div class="card">
+          <table class="tbl">
+            <thead><tr>
+              <th style="width:16%">Teacher</th>
+              <th style="width:12%">Month</th>
+              <th style="width:20%">Student Payments</th>
+              <th style="width:10%">Total Collected</th>
+              <th style="width:10%">Commission %</th>
+              <th style="width:12%">Commission Due</th>
+              <th style="width:10%">Status</th>
+              <th style="width:10%">Action</th>
+            </tr></thead>
+            <tbody id="payrollTableBody"><tr><td colspan="8"><div class="loading-row" style="padding:0.5rem"><span class="spinner"></span> Loading...</div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- EVENTS -->
+      <div class="page" id="pg-events">
+        <div class="search-row">
+          <input class="search-in" id="eventSearch" placeholder="Search events..." oninput="filterEvents()"/>
+          <button class="btn gold sm" onclick="openModal('addEvent')">+ Add Event</button>
+        </div>
+        <div class="card">
+          <table class="tbl">
+            <thead><tr>
+              <th style="width:25%">Title</th><th style="width:20%">Date & Time</th>
+              <th style="width:10%">Price</th><th style="width:10%">Capacity</th>
+              <th style="width:12%">Registered</th><th style="width:10%">Status</th>
+              <th style="width:13%">Action</th>
+            </tr></thead>
+            <tbody id="eventsTableBody"><tr><td colspan="7"><div class="loading-row" style="padding:0.5rem"><span class="spinner"></span> Loading...</div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SHOP ORDERS -->
+      <div class="page" id="pg-shop">
+        <div class="card"><div class="card-hd">Shop Orders</div>
+          <table class="tbl"><thead><tr><th style="width:15%">Order</th><th style="width:20%">Student</th><th style="width:28%">Item</th><th style="width:12%">Amount</th><th style="width:12%">Date</th><th style="width:13%">Status</th></tr></thead>
+          <tbody id="shopOrdersBody"><tr><td colspan="6"><div class="loading-row" style="padding:0.5rem"><span class="spinner"></span> Loading orders...</div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-bg" id="modal-addStudent">
+  <div class="modal"><div class="modal-hd">Add New Student <span class="modal-close" onclick="closeModal('addStudent')">×</span></div>
+    <label class="f-lbl">Full Name</label><input class="f-in" id="newStudentName" placeholder="Student full name"/>
+    <label class="f-lbl">Email</label><input class="f-in" id="newStudentEmail" placeholder="student@email.com"/>
+    <label class="f-lbl">Phone</label><input class="f-in" id="newStudentPhone" placeholder="+60 12-345 6789"/>
+    <label class="f-lbl">Instrument</label>
+    <select class="f-sel2" id="newStudentInstrument"><option>Piano</option><option>Violin</option><option>Singing</option></select>
+    <label class="f-lbl">Assign Teacher</label>
+    <select class="f-sel2" id="newStudentTeacher"><option value="">Select teacher...</option></select>
+    <label class="f-lbl">Plan</label>
+    <select class="f-sel2" id="newStudentPlan"><option>Solo — RM 180/mo</option><option>Duo — RM 320/mo</option><option>Elite — RM 480/mo</option></select>
+    <label class="f-lbl">Send Login Email</label>
+    <select class="f-sel2" id="newStudentSendEmail"><option value="yes">Yes — send welcome & password setup email</option><option value="no">No — I'll set up manually</option></select>
+    <div id="addStudentError" class="alert error hidden" style="margin-top:0.8rem"></div>
+    <div style="display:flex;gap:8px;margin-top:1.2rem">
+      <button class="btn gold" style="flex:1" onclick="addStudent()">Save Student</button>
+      <button class="btn" style="flex:1" onclick="closeModal('addStudent')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-editStudent">
+  <div class="modal"><div class="modal-hd">Edit Student <span class="modal-close" onclick="closeModal('editStudent')">×</span></div>
+    <input type="hidden" id="editStudentId"/>
+    <label class="f-lbl">Full Name</label><input class="f-in" id="editStudentName"/>
+    <label class="f-lbl">Email</label><input class="f-in" id="editStudentEmail"/>
+    <label class="f-lbl">Phone</label><input class="f-in" id="editStudentPhone"/>
+    <label class="f-lbl">Instrument</label>
+    <select class="f-sel2" id="editStudentInstrument"><option>Piano</option><option>Violin</option><option>Guitar</option><option>Singing</option></select>
+    <label class="f-lbl">Teacher</label>
+    <select class="f-sel2" id="editStudentTeacher"></select>
+    <label class="f-lbl">Plan</label>
+    <select class="f-sel2" id="editStudentPlan"><option>Solo — RM 180/mo</option><option>Duo — RM 320/mo</option><option>Elite — RM 480/mo</option></select>
+    <label class="f-lbl">Status</label>
+    <select class="f-sel2" id="editStudentStatus"><option>Active</option><option>Inactive</option></select>
+    <label class="f-lbl">Reset Password</label>
+    <button class="btn red-btn" style="width:100%;margin-top:4px" onclick="resetStudentPassword()">Send Password Reset Email</button>
+    <div style="display:flex;gap:8px;margin-top:1.2rem">
+      <button class="btn gold" style="flex:1" onclick="saveEditStudent()">Save Changes</button>
+      <button class="btn" style="flex:1" onclick="closeModal('editStudent')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-addTeacher">
+  <div class="modal"><div class="modal-hd">Add New Teacher <span class="modal-close" onclick="closeModal('addTeacher')">×</span></div>
+    <label class="f-lbl">Full Name</label><input class="f-in" id="newTeacherName" placeholder="Teacher full name"/>
+    <label class="f-lbl">Email</label><input class="f-in" id="newTeacherEmail" placeholder="teacher@email.com"/>
+    <label class="f-lbl">Instrument Taught</label>
+    <select class="f-sel2" id="newTeacherInstrument"><option>Piano</option><option>Violin</option><option>Guitar</option><option>Singing</option></select>
+    <label class="f-lbl">Qualification</label><input class="f-in" id="newTeacherQual" placeholder="e.g. Grade 8 ABRSM"/>
+    <label class="f-lbl">Phone</label><input class="f-in" id="newTeacherPhone" placeholder="+60 12-345 6789"/>
+    <div style="display:flex;gap:8px;margin-top:1.2rem">
+      <button class="btn gold" style="flex:1" onclick="addTeacher()">Save Teacher</button>
+      <button class="btn" style="flex:1" onclick="closeModal('addTeacher')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-addLesson">
+  <div class="modal"><div class="modal-hd">Add Lesson Slot <span class="modal-close" onclick="closeModal('addLesson')">×</span></div>
+    <label class="f-lbl">Student</label><select class="f-sel2" id="newLessonStudent"><option value="">Select student...</option></select>
+    <label class="f-lbl">Teacher</label><select class="f-sel2" id="newLessonTeacher"><option value="">Select teacher...</option></select>
+    <label class="f-lbl">Date</label><input class="f-in" id="newLessonDate" type="date"/>
+    <label class="f-lbl">Time</label>
+    <select class="f-sel2" id="newLessonTime"><option>9:00 AM</option><option>10:00 AM</option><option>11:00 AM</option><option>12:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option><option>6:00 PM</option></select>
+    <label class="f-lbl">Instrument</label>
+    <select class="f-sel2" id="newLessonInstrument"><option>Piano</option><option>Violin</option><option>Guitar</option><option>Singing</option></select>
+    <div style="display:flex;gap:8px;margin-top:1.2rem">
+      <button class="btn gold" style="flex:1" onclick="addLesson()">Save Lesson</button>
+      <button class="btn" style="flex:1" onclick="closeModal('addLesson')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-addPayment">
+  <div class="modal"><div class="modal-hd">Add Payment Record <span class="modal-close" onclick="closeModal('addPayment')">×</span></div>
+    <label class="f-lbl">Student</label><select class="f-sel2" id="newPayStudent"><option value="">Select student...</option></select>
+    <label class="f-lbl">Description</label><input class="f-in" id="newPayDesc" value="Monthly Fee"/>
+    <label class="f-lbl">Amount (RM)</label><input class="f-in" id="newPayAmt" type="number" value="200"/>
+    <label class="f-lbl">Due Date</label><input class="f-in" id="newPayDue" type="date"/>
+    <label class="f-lbl">Status</label>
+    <select class="f-sel2" id="newPayStatus"><option value="pending">Pending</option><option value="paid">Paid</option></select>
+    <label class="f-lbl">Payment Method (if paid)</label>
+    <select class="f-sel2" id="newPayMethod"><option>FPX — Maybank</option><option>FPX — CIMB</option><option>Touch 'n Go</option><option>Cash</option></select>
+    <div style="display:flex;gap:8px;margin-top:1.2rem">
+      <button class="btn gold" style="flex:1" onclick="addPayment()">Save Payment</button>
+      <button class="btn" style="flex:1" onclick="closeModal('addPayment')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<!-- PAYROLL MODAL -->
+<div class="modal-bg" id="modal-addPayroll">
+  <div class="modal"><div class="modal-hd">Set Teacher Commission <span class="modal-close" onclick="closeModal('addPayroll')">×</span></div>
+    <div class="alert info" style="font-size:0.75rem;padding:0.6rem 0.8rem;background:#EFF6FF;border:1px solid #85B7EB;color:#1E3A8A;border-radius:4px;margin-bottom:0.5rem">Commission is calculated from student payments received. Teacher only earns when student pays.</div>
+    <label class="f-lbl">Teacher</label><select class="f-sel2" id="newPayrollTeacher" onchange="loadTeacherPayments()"><option value="">Select teacher...</option></select>
+    <label class="f-lbl">Month</label>
+    <select class="f-sel2" id="newPayrollMonth" onchange="loadTeacherPayments()">
+      <option>January 2026</option><option>February 2026</option><option>March 2026</option>
+      <option>April 2026</option><option selected>May 2026</option><option>June 2026</option>
+      <option>July 2026</option><option>August 2026</option><option>September 2026</option>
+      <option>October 2026</option><option>November 2026</option><option>December 2026</option>
+    </select>
+    <div style="background:var(--light);border:1px solid var(--border);border-radius:4px;padding:0.8rem;margin-top:0.7rem">
+      <div style="font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.5rem">Student Payments This Month</div>
+      <div id="teacherPaymentsList" style="font-size:0.78rem;color:var(--muted)">Select teacher and month to load payments...</div>
+      <div style="margin-top:0.6rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:0.5rem">
+        <span style="font-size:0.72rem;font-weight:600">Total Collected:</span>
+        <span style="font-size:0.88rem;font-weight:700;color:var(--navy)" id="payrollTotalCollected">RM 0</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:0.5rem">
+      <div><label class="f-lbl">Commission % <span style="color:var(--muted);font-size:0.6rem">(editable)</span></label>
+        <input class="f-in" id="newPayrollCommission" type="number" value="60" min="1" max="100" oninput="calcCommission()"/>
+      </div>
+      <div><label class="f-lbl">Commission Amount</label>
+        <input class="f-in" id="newPayrollTotal" type="number" value="0" placeholder="Auto calculated" readonly style="background:var(--light)"/>
+      </div>
+    </div>
+    <label class="f-lbl">Bank Name</label><input class="f-in" id="newPayrollBank" placeholder="e.g. Maybank"/>
+    <label class="f-lbl">Bank Account Number</label><input class="f-in" id="newPayrollAccount" placeholder="e.g. 1234-5678-9012"/>
+    <div style="display:flex;gap:8px;margin-top:1.2rem">
+      <button class="btn gold" style="flex:1" onclick="addPayroll()">Save & Generate Payslip</button>
+      <button class="btn" style="flex:1" onclick="closeModal('addPayroll')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- EVENT MODAL -->
+<div class="modal-bg" id="modal-addEvent">
+  <div class="modal"><div class="modal-hd">Add Event / Seminar <span class="modal-close" onclick="closeModal('addEvent')">×</span></div>
+    <label class="f-lbl">Event Title</label><input class="f-in" id="newEventTitle" placeholder="e.g. Music Theory Workshop"/>
+    <label class="f-lbl">Description</label><textarea class="f-in" id="newEventDesc" rows="3" placeholder="Tell students what this event is about..." style="resize:vertical"></textarea>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div><label class="f-lbl">Date</label><input class="f-in" id="newEventDate" type="date"/></div>
+      <div><label class="f-lbl">Time</label><input class="f-in" id="newEventTime" placeholder="e.g. 10:00 AM"/></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div><label class="f-lbl">Price (RM, 0 = Free)</label><input class="f-in" id="newEventPrice" type="number" value="0"/></div>
+      <div><label class="f-lbl">Max Participants</label><input class="f-in" id="newEventCapacity" type="number" value="20"/></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:1.2rem">
+      <button class="btn gold" style="flex:1" onclick="addEvent()">Publish Event</button>
+      <button class="btn" style="flex:1" onclick="closeModal('addEvent')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import { getFirestore, collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc, query, where, orderBy, serverTimestamp, setDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+// ========== FIREBASE CONFIG ==========
+// REPLACE THIS WITH YOUR FIREBASE CONFIG
+const firebaseConfig = {
+  apiKey: "AIzaSyDKlurv4LOIBkJiW3clhSJvgW4FWrnZ6Aw",
+  authDomain: "aa-worldclass-superior.firebaseapp.com",
+  projectId: "aa-worldclass-superior",
+  storageBucket: "aa-worldclass-superior.firebasestorage.app",
+  messagingSenderId: "450605849549",
+  appId: "1:450605849549:web:497899dacab0a6bc638284"
+};
+// ======================================
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// ADMIN EMAILS
+const ADMIN_EMAILS = [
+  'worldclasssuperior@gmail.com',
+  'ronghui2000@gmail.com', 
+  'alansiang1991@gmail.com',
+  'aaworldclasssuperior@gmail.com'
+];
+
+let currentAdmin = null;
+let allStudents = [], allTeachers = [], allPayments = [], allLessons = [];
+let currentReceiptData = null;
+
+// AUTH STATE
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    const userEmail = (user.email || '').toLowerCase().trim();
+    const adminList = ADMIN_EMAILS.map(e => e.toLowerCase().trim());
+    const isAdmin = adminList.includes(userEmail);
+    console.log('Email:', userEmail, '| Admin list:', adminList, '| Match:', isAdmin);
+    if (isAdmin) {
+      currentAdmin = user;
+      document.getElementById('loginPage').classList.add('hidden');
+      document.getElementById('accessDenied').classList.add('hidden');
+      document.getElementById('adminPage').classList.remove('hidden');
+      document.getElementById('adminName').textContent = user.email.split('@')[0];
+      document.getElementById('adminInitials').textContent = user.email[0].toUpperCase();
+      loadAllData();
+    } else {
+      document.getElementById('loginPage').classList.add('hidden');
+      const ad=document.getElementById('accessDenied');ad.classList.remove('hidden');ad.style.display='flex';
+    }
+  } else {
+    document.getElementById('loginPage').classList.remove('hidden');
+    document.getElementById('adminPage').classList.add('hidden');
+    document.getElementById('accessDenied').classList.add('hidden');
+  }
+});
+
+// LOAD ALL DATA
+async function loadAllData() {
+  await Promise.all([loadStudents(), loadTeachers(), loadPayments(), loadLessons(), loadShopOrders(), loadPayroll(), loadEvents()]);
+  updateOverview();
+  populateDropdowns();
+}
+
+async function loadStudents() {
+  const snap = await getDocs(query(collection(db,'students'), orderBy('createdAt','desc')));
+  allStudents = snap.docs.map(d=>({id:d.id,...d.data()}));
+  renderStudents(allStudents);
+  document.getElementById('totalStudents').textContent = allStudents.length;
+  document.getElementById('studentsChange').textContent = allStudents.filter(s=>s.status!=='inactive').length + ' active';
+  // Recent students
+  const recent = allStudents.slice(0,4);
+  document.getElementById('recentStudentsList').innerHTML = recent.length ? recent.map(s=>`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid rgba(15,28,63,0.05)">
+      <div><div style="font-size:0.78rem;font-weight:500">${s.name}</div><div style="font-size:0.68rem;color:var(--muted)">${s.instrument||'—'} · ${s.teacher||'—'}</div></div>
+      <span class="pill ${s.status==='inactive'?'p-gray':'p-ok'}">${s.status||'Active'}</span>
+    </div>`).join('') : '<p style="font-size:0.78rem;color:var(--muted)">No students yet.</p>';
+}
+
+async function loadTeachers() {
+  const snap = await getDocs(collection(db,'teachers'));
+  allTeachers = snap.docs.map(d=>({id:d.id,...d.data()}));
+  renderTeachers(allTeachers);
+}
+
+async function loadPayments() {
+  const snap = await getDocs(query(collection(db,'payments'), orderBy('createdAt','desc')));
+  allPayments = snap.docs.map(d=>({id:d.id,...d.data()}));
+  renderPayments(allPayments);
+  // Stats
+  const pending = allPayments.filter(p=>p.status==='pending');
+  const paid = allPayments.filter(p=>p.status==='paid');
+  const pendingTotal = pending.reduce((s,p)=>s+(p.amount||0),0);
+  const paidTotal = paid.reduce((s,p)=>s+(p.amount||0),0);
+  document.getElementById('pendingPayments').textContent = pending.length;
+  document.getElementById('pendingAmount').textContent = 'RM '+pendingTotal+' outstanding';
+  document.getElementById('monthRevenue').textContent = 'RM '+paidTotal;
+  document.getElementById('revenueChange').textContent = paid.length+' payments received';
+  document.getElementById('collectedMonth').textContent = 'RM '+paidTotal;
+  document.getElementById('collectedPct').textContent = paid.length+' transactions';
+  document.getElementById('outstandingTotal').textContent = 'RM '+pendingTotal;
+  document.getElementById('outstandingCount').textContent = pending.length+' students';
+  document.getElementById('totalTransactions').textContent = allPayments.length;
+  // Pending list
+  document.getElementById('pendingPaymentsList').innerHTML = pending.length ? pending.slice(0,4).map(p=>`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid rgba(15,28,63,0.05)">
+      <div><div style="font-size:0.78rem;font-weight:500">${p.studentName||'—'}</div><div style="font-size:0.68rem;color:var(--muted)">Due ${p.dueDate||'—'}</div></div>
+      <div style="text-align:right"><div style="font-size:0.78rem;font-weight:600">RM ${p.amount}</div>
+        <button class="btn sm gold" style="margin-top:2px" onclick="markPaid('${p.id}')">Mark Paid</button></div>
+    </div>`).join('') : '<p style="font-size:0.78rem;color:var(--muted)">No pending payments.</p>';
+}
+
+async function loadLessons() {
+  const snap = await getDocs(query(collection(db,'lessons'), orderBy('date','asc')));
+  allLessons = snap.docs.map(d=>({id:d.id,...d.data()}));
+  renderSchedule(allLessons);
+  document.getElementById('lessonsToday').textContent = allLessons.filter(l=>l.status==='confirmed').length;
+  document.getElementById('lessonsTodayNote').textContent = 'confirmed upcoming';
+}
+
+async function loadShopOrders() {
+  const snap = await getDocs(query(collection(db,'orders'), orderBy('createdAt','desc')));
+  const orders = snap.docs.map(d=>({id:d.id,...d.data()}));
+  document.getElementById('shopOrdersBody').innerHTML = orders.length ? orders.map(o=>`
+    <tr><td class="rm">#${o.id.slice(-6).toUpperCase()}</td><td><div class="rt">${o.studentName||'—'}</div></td>
+    <td class="rm">${o.item||'—'}</td><td class="rm">RM ${o.amount||'—'}</td>
+    <td class="rm">${o.date||'—'}</td><td><span class="pill ${o.status==='delivered'?'p-ok':'p-warn'}">${o.status||'pending'}</span></td></tr>`).join('') :
+    '<tr><td colspan="6" style="text-align:center;padding:1rem;font-size:0.78rem;color:var(--muted)">No orders yet.</td></tr>';
+}
+
+function updateOverview() {}
+
+function renderStudents(students) {
+  document.getElementById('studentsTableBody').innerHTML = students.length ? students.map(s=>`
+    <tr><td><div class="rt">${s.name}</div><div class="rm">${s.email||'—'}</div></td>
+    <td><span class="pill p-blue">${s.instrument||'—'}</span></td>
+    <td class="rm">${s.teacher||'—'}</td>
+    <td class="rm">${(s.plan||'').replace(' — RM','').split('/')[0]||'—'}</td>
+    <td><span class="pill ${s.paymentStatus==='paid'?'p-ok':s.paymentStatus==='overdue'?'p-red':'p-warn'}">${s.paymentStatus||'pending'}</span></td>
+    <td><span class="pill ${s.status==='inactive'?'p-gray':'p-ok'}">${s.status||'Active'}</span></td>
+    <td><button class="btn sm" onclick="openEditStudent('${s.id}')">Edit</button></td></tr>`).join('') :
+    '<tr><td colspan="7" style="text-align:center;padding:1rem;font-size:0.78rem;color:var(--muted)">No students yet. Click "+ Add Student" to begin.</td></tr>';
+}
+
+function renderTeachers(teachers) {
+  const colors = ['rgba(201,168,76,0.15)','rgba(29,78,216,0.1)','rgba(30,122,74,0.1)'];
+  const textColors = ['var(--gold)','var(--blue)','var(--green)'];
+  document.getElementById('teachersGrid').innerHTML = teachers.length ? teachers.map((t,i)=>`
+    <div class="card" style="text-align:center;padding:1.2rem">
+      <div style="width:52px;height:52px;border-radius:50%;background:${colors[i%3]};display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;color:${textColors[i%3]};margin:0 auto 0.8rem">${t.name.split(' ').map(n=>n[0]).join('').slice(0,2)}</div>
+      <div style="font-size:0.88rem;font-weight:700">${t.name}</div>
+      <div style="font-size:0.7rem;color:var(--gold);margin-top:2px">${t.instrument||'—'}</div>
+      <div style="font-size:0.65rem;color:var(--muted);margin-top:4px">${t.qualification||'—'}</div>
+      <div style="margin:0.8rem 0;display:flex;justify-content:center;gap:1.5rem">
+        <div><div style="font-size:1rem;font-weight:700">${allStudents.filter(s=>s.teacher===t.name).length}</div><div style="font-size:0.6rem;color:var(--muted)">Students</div></div>
+        <div><div style="font-size:1rem;font-weight:700">${allLessons.filter(l=>l.teacherName===t.name&&l.status==='confirmed').length}</div><div style="font-size:0.6rem;color:var(--muted)">Upcoming</div></div>
+      </div>
+      <span class="pill p-ok">Active</span>
+    </div>`).join('') :
+    '<div style="grid-column:1/-1;text-align:center;padding:2rem;font-size:0.78rem;color:var(--muted)">No teachers yet. Click "+ Add Teacher" to begin.</div>';
+}
+
+function renderSchedule(lessons) {
+  // Count by status
+  const confirmed = lessons.filter(l=>l.status==='confirmed').length;
+  const pending = lessons.filter(l=>l.status==='pending approval').length;
+  const completed = lessons.filter(l=>l.status==='completed').length;
+  if(document.getElementById('countConfirmed')) {
+    document.getElementById('countConfirmed').textContent = confirmed+' Confirmed';
+    document.getElementById('countPending').textContent = pending+' Pending';
+    document.getElementById('countCompleted').textContent = completed+' Completed';
+  }
+
+  // Pending reschedule alert
+  const pendingReschedules = lessons.filter(l=>l.status==='pending approval');
+  const alertEl = document.getElementById('pendingRescheduleAlert');
+  if (alertEl) {
+    if (pendingReschedules.length > 0) {
+      alertEl.classList.remove('hidden');
+      alertEl.style.display='flex';
+      document.getElementById('pendingRescheduleText').textContent = pendingReschedules.length+' reschedule request(s) waiting for teacher approval.';
+    } else {
+      alertEl.style.display='none';
+    }
+  }
+
+  // Reschedule requests section
+  const reschedEl = document.getElementById('rescheduleRequestsList');
+  if (reschedEl) {
+    reschedEl.innerHTML = pendingReschedules.length ?
+      pendingReschedules.map(l=>`
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid var(--border)">
+          <div>
+            <div style="font-size:0.8rem;font-weight:600">${l.studentName||'—'} <span style="font-weight:400;color:var(--muted)">→ ${l.teacherName||'—'}</span></div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-top:2px">
+              Current: <b>${l.date||'—'} · ${l.time||'—'}</b>
+            </div>
+            <div style="font-size:0.7rem;color:var(--amber);margin-top:1px">
+              Requested: <b>${l.requestedDate||'—'} · ${l.requestedTime||'—'}</b>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center">
+            <button class="btn sm gold" onclick="adminApproveReschedule('${l.id}')">Approve</button>
+            <button class="btn sm red-btn" onclick="adminRejectReschedule('${l.id}')">Reject</button>
+          </div>
+        </div>`).join('') :
+      '<p style="font-size:0.78rem;color:var(--muted)">No pending reschedule requests. ✓</p>';
+  }
+
+  // Main table
+  document.getElementById('scheduleTableBody').innerHTML = lessons.length ? lessons.map(l=>`
+    <tr>
+      <td><div class="rt">${l.studentName||'—'}</div></td>
+      <td class="rm">${l.teacherName||'—'}</td>
+      <td><span class="pill p-blue">${l.instrument||'—'}</span></td>
+      <td>
+        <div style="font-size:0.78rem;font-weight:500">${l.date||'—'}</div>
+        <div style="font-size:0.68rem;color:var(--muted)">${l.time||'—'}</div>
+      </td>
+      <td>
+        ${l.status==='pending approval'
+          ? `<div style="font-size:0.72rem;color:var(--amber)">⏳ ${l.requestedDate||'—'} · ${l.requestedTime||'—'}</div>
+             <div style="font-size:0.65rem;color:var(--muted)">Awaiting teacher approval</div>`
+          : l.rescheduleStatus
+            ? `<div style="font-size:0.72rem;color:${l.rescheduleStatus==='approved'?'var(--green-text)':'var(--red-text)'}">${l.rescheduleStatus==='approved'?'✓ Approved':'✗ Rejected'}</div>`
+            : '<span style="font-size:0.68rem;color:var(--muted)">—</span>'}
+      </td>
+      <td><span class="pill ${l.status==='confirmed'?'p-ok':l.status==='completed'?'p-gray':l.status==='pending approval'?'p-warn':'p-red'}">${l.status||'—'}</span></td>
+      <td style="display:flex;gap:4px;flex-wrap:wrap">
+        ${l.status==='confirmed'?`<button class="btn sm" onclick="markLessonDone('${l.id}')">Done</button>`:''}
+        ${l.status==='pending approval'?`<button class="btn sm gold" onclick="adminApproveReschedule('${l.id}')">Approve</button>`:''}
+        <button class="btn sm red-btn" onclick="cancelLesson('${l.id}')">Cancel</button>
+      </td>
+    </tr>`).join('') :
+    '<tr><td colspan="7" style="text-align:center;padding:1rem;font-size:0.78rem;color:var(--muted)">No lessons found.</td></tr>';
+}
+
+function renderPayments(payments) {
+  document.getElementById('paymentsTableBody').innerHTML = payments.length ? payments.map(p=>`
+    <tr><td><div class="rt">${p.studentName||'—'}</div></td>
+    <td class="rm">${p.description||'—'}</td>
+    <td class="rm">RM ${p.amount||'—'}</td>
+    <td class="rm">${p.method||'—'}</td>
+    <td class="rm">${p.date||p.dueDate||'—'}</td>
+    <td><span class="pill ${p.status==='paid'?'p-ok':p.status==='overdue'?'p-red':'p-warn'}">${p.status||'pending'}</span></td>
+    <td>${p.status==='paid'?`<button class="btn sm" onclick="generateReceiptFromPayment('${p.id}')">Receipt</button>`:`<button class="btn sm gold" onclick="markPaid('${p.id}')">Mark Paid</button>`}</td></tr>`).join('') :
+    '<tr><td colspan="7" style="text-align:center;padding:1rem;font-size:0.78rem;color:var(--muted)">No payment records.</td></tr>';
+}
+
+function populateDropdowns() {
+  const teacherOptions = allTeachers.map(t=>`<option value="${t.name}">${t.name} (${t.instrument})</option>`).join('');
+  const studentOptions = allStudents.map(s=>`<option value="${s.id}" data-name="${s.name}">${s.name}</option>`).join('');
+  ['newStudentTeacher','editStudentTeacher','newLessonTeacher','schedTeacherFilter'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.innerHTML = (id==='schedTeacherFilter'?'<option value="">All teachers</option>':'<option value="">Select teacher...</option>') + teacherOptions;
+  });
+  ['newPayrollTeacher'].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML='<option value="">Select teacher...</option>'+teacherOptions; });
+  ['newLessonStudent','newPayStudent','rcpStudent'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.innerHTML = '<option value="">Select student...</option>' + studentOptions;
+  });
+}
+
+// GLOBAL FUNCTIONS
+window.adminLogin = async function() {
+  try {
+    await signInWithEmailAndPassword(auth, document.getElementById('adminEmail').value, document.getElementById('adminPass').value);
+  } catch(e) {
+    const err = document.getElementById('adminAuthError');
+    err.textContent = e.code==='auth/wrong-password'?'Incorrect password.':e.code==='auth/user-not-found'?'Admin account not found.':'Login failed.';
+    err.classList.remove('hidden');
+  }
+};
+window.adminLogout = async function() { await signOut(auth); };
+
+window.go = function(n,el) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('on'));
+  document.getElementById('pg-'+n).classList.add('on');
+  if(el) el.classList.add('on');
+  const t={overview:'Dashboard',students:'Students',teachers:'Teachers',schedule:'Schedule',payments:'Payments',receipts:'Receipts & PDF',payroll:'Payroll',events:'Events',shop:'Shop Orders'};
+  document.getElementById('pgTitle').textContent=t[n]||n;
+};
+
+window.openModal = function(id) {
+  populateDropdowns();
+  document.getElementById('modal-'+id).classList.add('show');
+};
+window.closeModal = function(id) { document.getElementById('modal-'+id).classList.remove('show'); };
+
+window.filterStudents = function() {
+  const search = document.getElementById('studentSearch').value.toLowerCase();
+  const instrument = document.getElementById('instrumentFilter').value;
+  const filtered = allStudents.filter(s =>
+    (!search || s.name.toLowerCase().includes(search) || (s.email||'').toLowerCase().includes(search)) &&
+    (!instrument || s.instrument === instrument));
+  renderStudents(filtered);
+};
+
+window.filterPayments = function() {
+  const search = document.getElementById('paymentSearch').value.toLowerCase();
+  const status = document.getElementById('paymentStatusFilter').value;
+  const filtered = allPayments.filter(p =>
+    (!search || (p.studentName||'').toLowerCase().includes(search)) &&
+    (!status || p.status === status));
+  renderPayments(filtered);
+};
+
+window.addStudent = async function() {
+  const name = document.getElementById('newStudentName').value.trim();
+  const email = document.getElementById('newStudentEmail').value.trim();
+  if (!name || !email) { document.getElementById('addStudentError').textContent='Name and email are required.'; document.getElementById('addStudentError').classList.remove('hidden'); return; }
+  try {
+    const studentData = {
+      name, email,
+      phone: document.getElementById('newStudentPhone').value,
+      instrument: document.getElementById('newStudentInstrument').value,
+      teacher: document.getElementById('newStudentTeacher').value,
+      plan: document.getElementById('newStudentPlan').value,
+      status: 'Active', paymentStatus: 'pending',
+      createdAt: serverTimestamp()
+    };
+    const docRef = await addDoc(collection(db,'students'), studentData);
+    // Send password reset email so student can set their own password
+    if (document.getElementById('newStudentSendEmail').value === 'yes') {
+      try {
+        await createUserWithEmailAndPassword(auth, email, Math.random().toString(36).slice(-8));
+      } catch(e) { /* Account may already exist */ }
+      await sendPasswordResetEmail(auth, email);
+    }
+    closeModal('addStudent');
+    await loadStudents();
+    alert('Student added successfully! A password setup email has been sent to ' + email);
+  } catch(e) {
+    document.getElementById('addStudentError').textContent = 'Error: ' + e.message;
+    document.getElementById('addStudentError').classList.remove('hidden');
+  }
+};
+
+window.openEditStudent = function(id) {
+  const s = allStudents.find(s=>s.id===id);
+  if (!s) return;
+  document.getElementById('editStudentId').value = id;
+  document.getElementById('editStudentName').value = s.name||'';
+  document.getElementById('editStudentEmail').value = s.email||'';
+  document.getElementById('editStudentPhone').value = s.phone||'';
+  document.getElementById('editStudentInstrument').value = s.instrument||'Piano';
+  document.getElementById('editStudentPlan').value = s.plan||'Solo — RM 180/mo';
+  document.getElementById('editStudentStatus').value = s.status||'Active';
+  populateDropdowns();
+  setTimeout(()=>{ document.getElementById('editStudentTeacher').value = s.teacher||''; }, 100);
+  openModal('editStudent');
+};
+
+window.saveEditStudent = async function() {
+  const id = document.getElementById('editStudentId').value;
+  try {
+    await updateDoc(doc(db,'students',id), {
+      name: document.getElementById('editStudentName').value,
+      email: document.getElementById('editStudentEmail').value,
+      phone: document.getElementById('editStudentPhone').value,
+      instrument: document.getElementById('editStudentInstrument').value,
+      teacher: document.getElementById('editStudentTeacher').value,
+      plan: document.getElementById('editStudentPlan').value,
+      status: document.getElementById('editStudentStatus').value,
+      updatedAt: serverTimestamp()
+    });
+    closeModal('editStudent');
+    await loadStudents();
+  } catch(e) { alert('Error saving: ' + e.message); }
+};
+
+window.resetStudentPassword = async function() {
+  const email = document.getElementById('editStudentEmail').value;
+  if (!email) { alert('No email on file for this student.'); return; }
+  try {
+    await sendPasswordResetEmail(auth, email);
+    alert('Password reset email sent to ' + email);
+  } catch(e) { alert('Error: ' + e.message); }
+};
+
+window.addTeacher = async function() {
+  const name = document.getElementById('newTeacherName').value.trim();
+  if (!name) { alert('Teacher name is required.'); return; }
+  try {
+    await addDoc(collection(db,'teachers'), {
+      name, email: document.getElementById('newTeacherEmail').value,
+      instrument: document.getElementById('newTeacherInstrument').value,
+      qualification: document.getElementById('newTeacherQual').value,
+      phone: document.getElementById('newTeacherPhone').value,
+      createdAt: serverTimestamp()
+    });
+    closeModal('addTeacher');
+    await loadTeachers();
+  } catch(e) { alert('Error: ' + e.message); }
+};
+
+window.addLesson = async function() {
+  const studentId = document.getElementById('newLessonStudent').value;
+  const student = allStudents.find(s=>s.id===studentId);
+  if (!studentId || !student) { alert('Please select a student.'); return; }
+  try {
+    await addDoc(collection(db,'lessons'), {
+      studentId, studentName: student.name,
+      teacherName: document.getElementById('newLessonTeacher').value,
+      date: document.getElementById('newLessonDate').value,
+      time: document.getElementById('newLessonTime').value,
+      instrument: document.getElementById('newLessonInstrument').value,
+      status: 'confirmed', createdAt: serverTimestamp()
+    });
+    closeModal('addLesson');
+    await loadLessons();
+  } catch(e) { alert('Error: ' + e.message); }
+};
+
+window.markLessonDone = async function(id) {
+  if (!confirm('Mark this lesson as completed?')) return;
+  await updateDoc(doc(db,'lessons',id), { status:'completed', updatedAt:serverTimestamp() });
+  await loadLessons();
+};
+
+window.addPayment = async function() {
+  const studentId = document.getElementById('newPayStudent').value;
+  const student = allStudents.find(s=>s.id===studentId);
+  if (!studentId || !student) { alert('Please select a student.'); return; }
+  const status = document.getElementById('newPayStatus').value;
+  try {
+    await addDoc(collection(db,'payments'), {
+      studentId, studentName: student.name,
+      description: document.getElementById('newPayDesc').value,
+      amount: parseFloat(document.getElementById('newPayAmt').value),
+      dueDate: document.getElementById('newPayDue').value,
+      status,
+      method: status==='paid' ? document.getElementById('newPayMethod').value : null,
+      date: status==='paid' ? new Date().toLocaleDateString('en-MY',{day:'numeric',month:'short',year:'numeric'}) : null,
+      createdAt: serverTimestamp()
+    });
+    closeModal('addPayment');
+    await loadPayments();
+  } catch(e) { alert('Error: ' + e.message); }
+};
+
+window.markPaid = async function(id) {
+  const method = prompt('Payment method? (e.g. FPX — Maybank, Touch \'n Go, Cash)','FPX — Maybank');
+  if (!method) return;
+  await updateDoc(doc(db,'payments',id), {
+    status:'paid', method,
+    date: new Date().toLocaleDateString('en-MY',{day:'numeric',month:'short',year:'numeric'}),
+    updatedAt: serverTimestamp()
+  });
+  // Update student payment status
+  const payment = allPayments.find(p=>p.id===id);
+  if (payment?.studentId) await updateDoc(doc(db,'students',payment.studentId), { paymentStatus:'paid' });
+  await loadPayments();
+};
+
+window.genReceipt = function() {
+  const studentEl = document.getElementById('rcpStudent');
+  const studentName = studentEl.options[studentEl.selectedIndex]?.getAttribute('data-name') || '—';
+  const no = 'RCP-'+Date.now().toString().slice(-6);
+  document.getElementById('previewNo').textContent = no;
+  document.getElementById('pStudent').textContent = studentName;
+  document.getElementById('pDesc').textContent = document.getElementById('rcpDesc').value;
+  document.getElementById('pDate').textContent = document.getElementById('rcpDate').value;
+  document.getElementById('pMethod').textContent = document.getElementById('rcpMethod').value;
+  document.getElementById('pAmt').textContent = 'RM ' + parseFloat(document.getElementById('rcpAmt').value).toFixed(2);
+  currentReceiptData = { no, student: studentName, studentId: document.getElementById('rcpStudent').value,
+    desc: document.getElementById('rcpDesc').value, date: document.getElementById('rcpDate').value,
+    method: document.getElementById('rcpMethod').value, amount: parseFloat(document.getElementById('rcpAmt').value) };
+};
+
+window.saveReceiptToFirestore = async function() {
+  if (!currentReceiptData || !currentReceiptData.studentId) { alert('Please select a student and preview receipt first.'); return; }
+  try {
+    await addDoc(collection(db,'payments'), {
+      studentId: currentReceiptData.studentId, studentName: currentReceiptData.student,
+      description: currentReceiptData.desc, amount: currentReceiptData.amount,
+      method: currentReceiptData.method, date: currentReceiptData.date,
+      status: 'paid', receiptNo: currentReceiptData.no, createdAt: serverTimestamp()
+    });
+    await updateDoc(doc(db,'students',currentReceiptData.studentId), { paymentStatus:'paid' });
+    alert('Receipt saved and payment recorded!');
+    await loadPayments();
+  } catch(e) { alert('Error saving: ' + e.message); }
+};
+
+window.generateReceiptFromPayment = function(id) {
+  const p = allPayments.find(x=>x.id===id);
+  if (!p) return;
+  currentReceiptData = { no:'RCP-'+id.slice(-6).toUpperCase(), student:p.studentName, desc:p.description, date:p.date||p.dueDate, method:p.method||'—', amount:p.amount };
+  document.getElementById('previewNo').textContent = currentReceiptData.no;
+  document.getElementById('pStudent').textContent = p.studentName;
+  document.getElementById('pDesc').textContent = p.description;
+  document.getElementById('pDate').textContent = p.date||p.dueDate||'—';
+  document.getElementById('pMethod').textContent = p.method||'—';
+  document.getElementById('pAmt').textContent = 'RM '+p.amount;
+  go('receipts', document.querySelectorAll('.nav-item')[5]);
+};
+
+window.downloadPDF = function() {
+  if (!currentReceiptData) { alert('Please preview a receipt first.'); return; }
+  if (typeof window.jspdf === 'undefined') { alert('PDF library loading, please try again.'); return; }
+  const {jsPDF} = window.jspdf;
+  const d = currentReceiptData;
+  const doc2 = new jsPDF({unit:'mm',format:'a4'});
+  doc2.setFillColor(15,28,63);doc2.rect(0,0,210,38,'F');
+  doc2.setTextColor(201,168,76);doc2.setFontSize(16);doc2.setFont('helvetica','bold');
+  doc2.text('A&A Worldclass Superior',105,15,{align:'center'});
+  doc2.setFontSize(8);doc2.setFont('helvetica','normal');doc2.setTextColor(180,180,180);
+  doc2.text('Excellence in Piano · Singing · Violin  |  worldclasssuperior.com',105,23,{align:'center'});
+  doc2.setTextColor(15,28,63);doc2.setFontSize(13);doc2.setFont('helvetica','bold');
+  doc2.text('OFFICIAL RECEIPT',105,48,{align:'center'});
+  doc2.setFontSize(9);doc2.setFont('helvetica','normal');doc2.setTextColor(130,130,130);
+  doc2.text('Receipt No: '+d.no,105,55,{align:'center'});
+  doc2.setDrawColor(201,168,76);doc2.setLineWidth(0.5);doc2.line(20,59,190,59);
+  const rows=[['Student',d.student],['Description',d.desc],['Date',d.date],['Payment Method',d.method]];
+  let y=68;
+  rows.forEach(r=>{doc2.setFontSize(9);doc2.setFont('helvetica','normal');doc2.setTextColor(130,130,140);doc2.text(r[0],25,y);doc2.setTextColor(15,28,63);doc2.setFont('helvetica','bold');doc2.text(r[1]||'—',110,y);y+=9;});
+  doc2.setDrawColor(201,168,76);doc2.line(20,y+2,190,y+2);y+=10;
+  doc2.setFontSize(12);doc2.setTextColor(15,28,63);doc2.text('Total Amount',25,y);doc2.setTextColor(201,168,76);doc2.text('RM '+(d.amount||0).toFixed(2),110,y);
+  doc2.setFillColor(230,244,237);doc2.roundedRect(60,y+7,90,10,2,2,'F');doc2.setFontSize(9);doc2.setTextColor(20,90,53);doc2.setFont('helvetica','bold');doc2.text('PAYMENT CONFIRMED',105,y+14,{align:'center'});
+  doc2.setFontSize(7.5);doc2.setFont('helvetica','normal');doc2.setTextColor(160,160,160);doc2.text('Thank you. This is an official receipt from A&A Worldclass Superior.',105,y+28,{align:'center'});
+  doc2.setFillColor(15,28,63);doc2.rect(0,270,210,27,'F');doc2.setTextColor(180,180,180);doc2.setFontSize(8);doc2.text('worldclasssuperior.com  ·  All rights reserved © 2026',105,283,{align:'center'});
+  doc2.save('Receipt-'+d.no+'.pdf');
+};
+
+window.emailReceipt = function() {
+  if (!currentReceiptData) { alert('Please preview a receipt first.'); return; }
+  alert('Receipt emailed to ' + currentReceiptData.student + '. (Connect email service like EmailJS or SendGrid to fully activate this.)');
+};
+
+
+// ===== PAYROLL (commission-based) =====
+async function loadPayroll() {
+  const filter = document.getElementById('payrollMonthFilter')?.value || '';
+  const snap = await getDocs(query(collection(db,'payroll'), orderBy('createdAt','desc')));
+  const records = snap.docs.map(d=>({id:d.id,...d.data()}));
+  const filtered = filter ? records.filter(r=>r.month===filter) : records;
+  const paid = filtered.filter(r=>r.status==='paid');
+  const pending = filtered.filter(r=>r.status==='pending');
+  document.getElementById('payrollTotal').textContent = 'RM '+paid.reduce((s,r)=>s+(r.commissionAmount||0),0).toFixed(2);
+  document.getElementById('payrollPaidCount').textContent = paid.length+' transferred';
+  document.getElementById('payrollPending').textContent = 'RM '+pending.reduce((s,r)=>s+(r.commissionAmount||0),0).toFixed(2);
+  document.getElementById('payrollPendingCount').textContent = pending.length+' pending transfer';
+  document.getElementById('payrollTeachers').textContent = allTeachers.length;
+  document.getElementById('payrollTableBody').innerHTML = filtered.length ? filtered.map(r=>`
+    <tr>
+      <td>
+        <div class="rt">${r.teacherName||'—'}</div>
+        <div class="rm">${r.bankName||'—'} · ${r.bankAccount||'—'}</div>
+      </td>
+      <td class="rm">${r.month||'—'}</td>
+      <td>
+        <div style="font-size:0.72rem">${(r.paidStudents||[]).map(s=>`<div style="color:var(--green-text)">✓ ${s.name} — RM${s.amount}</div>`).join('')}</div>
+        ${r.unpaidStudents?.length?`<div style="font-size:0.68rem;color:var(--red-text);margin-top:2px">${r.unpaidStudents.map(s=>`✗ ${s.name}`).join(', ')} (unpaid)</div>`:''}
+      </td>
+      <td style="font-weight:600">RM ${(r.totalCollected||0).toFixed(2)}</td>
+      <td class="rm">${r.commissionPct||60}%</td>
+      <td style="font-weight:700;color:var(--navy4)">RM ${(r.commissionAmount||0).toFixed(2)}</td>
+      <td><span class="pill ${r.status==='paid'?'p-ok':'p-warn'}">${r.status==='paid'?'Transferred':'Pending'}</span></td>
+      <td style="display:flex;gap:4px;flex-wrap:wrap">
+        ${r.status==='pending'?`<button class="btn sm gold" onclick="markPayrollPaid('${r.id}')">Transfer</button>`:'<span style="font-size:0.65rem;color:var(--green-text)">Done ✓</span>'}
+        <button class="btn sm" onclick="downloadPayslip('${r.id}')">PDF</button>
+      </td>
+    </tr>`).join('') :
+    '<tr><td colspan="8" style="text-align:center;padding:1.2rem;font-size:0.78rem;color:var(--muted)">No payroll records. Click "+ Calculate Commission" to generate.</td></tr>';
+}
+
+// Load student payments for selected teacher/month
+window.loadTeacherPayments = async function() {
+  const teacherName = document.getElementById('newPayrollTeacher').value;
+  const month = document.getElementById('newPayrollMonth').value;
+  if (!teacherName || !month) return;
+  // Get all students under this teacher
+  const studentsSnap = await getDocs(query(collection(db,'students'),where('teacher','==',teacherName)));
+  const students = studentsSnap.docs.map(d=>({id:d.id,...d.data()}));
+  // Get paid payments for this month
+  const paymentsSnap = await getDocs(query(collection(db,'payments'),where('status','==','paid')));
+  const payments = paymentsSnap.docs.map(d=>d.data());
+  let html = '';
+  let total = 0;
+  students.forEach(s => {
+    const paid = payments.filter(p=>p.studentId===s.id && (p.date||'').includes('2026'));
+    const isPaid = paid.length > 0;
+    const amount = paid.reduce((sum,p)=>sum+(p.amount||0),0);
+    if (isPaid) total += amount;
+    html += `<div style="display:flex;justify-content:space-between;padding:3px 0;font-size:0.75rem">
+      <span>${s.name}</span>
+      <span style="color:${isPaid?'var(--green-text)':'var(--red-text);text-decoration:line-through'}">${isPaid?'RM '+amount+' ✓':'Not paid'}</span>
+    </div>`;
+  });
+  document.getElementById('teacherPaymentsList').innerHTML = html || '<div style="color:var(--muted);font-size:0.75rem">No students under this teacher.</div>';
+  document.getElementById('payrollTotalCollected').textContent = 'RM '+total.toFixed(2);
+  window._payrollTotal = total;
+  window._payrollStudents = students;
+  window._payrollPayments = payments;
+  calcCommission();
+};
+
+window.calcCommission = function() {
+  const pct = parseFloat(document.getElementById('newPayrollCommission').value)||60;
+  const total = window._payrollTotal || 0;
+  document.getElementById('newPayrollTotal').value = (total * pct / 100).toFixed(2);
+};
+
+window.addPayroll = async function() {
+  const teacherName = document.getElementById('newPayrollTeacher').value;
+  if (!teacherName) { alert('Please select a teacher.'); return; }
+  const pct = parseFloat(document.getElementById('newPayrollCommission').value)||60;
+  const total = window._payrollTotal||0;
+  const commission = parseFloat(document.getElementById('newPayrollTotal').value)||0;
+  if (total === 0) { if(!confirm('No paid students found for this teacher this month. Save anyway?')) return; }
+  const students = window._payrollStudents||[];
+  const payments = window._payrollPayments||[];
+  const paidStudents = students.filter(s=>payments.some(p=>p.studentId===s.id)).map(s=>({name:s.name,amount:payments.filter(p=>p.studentId===s.id).reduce((sum,p)=>sum+(p.amount||0),0)}));
+  const unpaidStudents = students.filter(s=>!payments.some(p=>p.studentId===s.id)).map(s=>({name:s.name}));
+  try {
+    const teacher = allTeachers.find(t=>t.name===teacherName);
+    await addDoc(collection(db,'payroll'), {
+      teacherName, teacherId: teacher?.id||'',
+      month: document.getElementById('newPayrollMonth').value,
+      commissionPct: pct, totalCollected: total, commissionAmount: commission,
+      paidStudents, unpaidStudents,
+      bankName: document.getElementById('newPayrollBank').value,
+      bankAccount: document.getElementById('newPayrollAccount').value,
+      status: 'pending', createdAt: serverTimestamp()
+    });
+    closeModal('addPayroll');
+    window._payrollTotal=0; window._payrollStudents=[]; window._payrollPayments=[];
+    document.getElementById('teacherPaymentsList').innerHTML='Select teacher and month...';
+    document.getElementById('payrollTotalCollected').textContent='RM 0';
+    await loadPayroll();
+  } catch(e) { alert('Error: '+e.message); }
+};
+
+window.markPayrollPaid = async function(id) {
+  if (!confirm('Mark commission as transferred to teacher?')) return;
+  await updateDoc(doc(db,'payroll',id), {
+    status:'paid',
+    paidDate: new Date().toLocaleDateString('en-MY',{day:'numeric',month:'short',year:'numeric'}),
+    updatedAt:serverTimestamp()
+  });
+  await loadPayroll();
+};
+
+window.downloadPayslip = function(id) {
+  const records = [];
+  getDocs(collection(db,'payroll')).then(snap=>{
+    const r = snap.docs.find(d=>d.id===id);
+    if (!r) return;
+    const p = r.data();
+    if (typeof window.jspdf === 'undefined') { alert('PDF loading, try again.'); return; }
+    const {jsPDF} = window.jspdf;
+    const doc2 = new jsPDF({unit:'mm',format:'a4'});
+    doc2.setFillColor(15,28,63); doc2.rect(0,0,210,38,'F');
+    doc2.setTextColor(201,168,76); doc2.setFontSize(16); doc2.setFont('helvetica','bold');
+    doc2.text('A&A Music Studio',105,15,{align:'center'});
+    doc2.setFontSize(8); doc2.setFont('helvetica','normal'); doc2.setTextColor(180,180,180);
+    doc2.text('worldclasssuperior.com',105,23,{align:'center'});
+    doc2.setTextColor(15,28,63); doc2.setFontSize(14); doc2.setFont('helvetica','bold');
+    doc2.text('TEACHER PAYSLIP',105,48,{align:'center'});
+    doc2.setFontSize(9); doc2.setFont('helvetica','normal'); doc2.setTextColor(130,130,130);
+    doc2.text('Month: '+p.month,105,55,{align:'center'});
+    doc2.setDrawColor(201,168,76); doc2.setLineWidth(0.5); doc2.line(20,59,190,59);
+    const rows=[['Teacher Name',p.teacherName],['Bank Name',p.bankName||'—'],['Bank Account',p.bankAccount||'—'],['Lessons Taught',p.lessons+' lessons'],['Rate per Lesson','RM '+p.rate]];
+    let y=68;
+    rows.forEach(r=>{doc2.setFontSize(9);doc2.setFont('helvetica','normal');doc2.setTextColor(130,130,140);doc2.text(r[0],25,y);doc2.setTextColor(15,28,63);doc2.setFont('helvetica','bold');doc2.text(String(r[1]),110,y);y+=9;});
+    doc2.setDrawColor(201,168,76);doc2.line(20,y+2,190,y+2);y+=10;
+    doc2.setFontSize(13);doc2.setTextColor(15,28,63);doc2.text('Net Pay',25,y);doc2.setTextColor(201,168,76);doc2.text('RM '+(p.total||0).toFixed(2),110,y);
+    const statusColor = p.status==='paid' ? [230,244,237] : [254,243,220];
+    const statusTextColor = p.status==='paid' ? [20,90,53] : [122,74,6];
+    doc2.setFillColor(...statusColor);doc2.roundedRect(60,y+7,90,10,2,2,'F');
+    doc2.setFontSize(9);doc2.setTextColor(...statusTextColor);doc2.setFont('helvetica','bold');
+    doc2.text(p.status==='paid'?'PAYMENT COMPLETED':'PAYMENT PENDING',105,y+14,{align:'center'});
+    doc2.setFillColor(15,28,63);doc2.rect(0,270,210,27,'F');doc2.setTextColor(180,180,180);doc2.setFontSize(8);
+    doc2.text('A&A Music Studio  ·  worldclasssuperior.com  ·  © 2026',105,283,{align:'center'});
+    doc2.save('Payslip-'+p.teacherName.replace(/\s/g,'-')+'-'+p.month.replace(/\s/g,'-')+'.pdf');
+  });
+};
+
+// ===== EVENTS =====
+let allEvents = [];
+async function loadEvents() {
+  const snap = await getDocs(query(collection(db,'events'), orderBy('createdAt','desc')));
+  allEvents = snap.docs.map(d=>({id:d.id,...d.data()}));
+  renderEvents(allEvents);
+}
+
+function renderEvents(events) {
+  document.getElementById('eventsTableBody').innerHTML = events.length ? events.map(e=>`
+    <tr>
+      <td><div class="rt">${e.title||'—'}</div><div class="rm">${(e.description||'').slice(0,40)}${e.description?.length>40?'...':''}</div></td>
+      <td class="rm">${e.date||'—'} · ${e.time||'—'}</td>
+      <td class="rm">${parseFloat(e.price||0)===0?'<span class="pill p-ok">FREE</span>':'RM '+e.price}</td>
+      <td class="rm">${e.maxParticipants||'—'}</td>
+      <td class="rm" id="reg-${e.id}">Loading...</td>
+      <td><span class="pill ${e.status==='published'?'p-ok':'p-gray'}">${e.status||'draft'}</span></td>
+      <td style="display:flex;gap:4px">
+        <button class="btn sm gold" onclick="toggleEventStatus('${e.id}','${e.status}')">${e.status==='published'?'Unpublish':'Publish'}</button>
+        <button class="btn sm red-btn" onclick="deleteEvent('${e.id}')">Delete</button>
+      </td>
+    </tr>`).join('') :
+    '<tr><td colspan="7" style="text-align:center;padding:1rem;font-size:0.78rem;color:var(--muted)">No events yet. Click "+ Add Event" to create one.</td></tr>';
+  // Load registration counts
+  events.forEach(async e => {
+    const regSnap = await getDocs(query(collection(db,'registrations'),where('eventId','==',e.id)));
+    const el = document.getElementById('reg-'+e.id);
+    if (el) el.textContent = regSnap.size+' / '+(e.maxParticipants||'—');
+  });
+}
+
+window.filterEvents = function() {
+  const s = document.getElementById('eventSearch').value.toLowerCase();
+  renderEvents(allEvents.filter(e=>(e.title||'').toLowerCase().includes(s)));
+};
+
+window.addEvent = async function() {
+  const title = document.getElementById('newEventTitle').value.trim();
+  if (!title) { alert('Please enter an event title.'); return; }
+  try {
+    await addDoc(collection(db,'events'), {
+      title, description: document.getElementById('newEventDesc').value,
+      date: document.getElementById('newEventDate').value,
+      time: document.getElementById('newEventTime').value,
+      price: parseFloat(document.getElementById('newEventPrice').value)||0,
+      maxParticipants: parseInt(document.getElementById('newEventCapacity').value)||20,
+      status: 'published', createdAt: serverTimestamp()
+    });
+    closeModal('addEvent');
+    await loadEvents();
+  } catch(e) { alert('Error: '+e.message); }
+};
+
+window.toggleEventStatus = async function(id, currentStatus) {
+  await updateDoc(doc(db,'events',id), { status: currentStatus==='published'?'draft':'published' });
+  await loadEvents();
+};
+
+window.deleteEvent = async function(id) {
+  if (!confirm('Delete this event?')) return;
+  await deleteDoc(doc(db,'events',id));
+  await loadEvents();
+};
+
+// Add payroll teacher dropdown population
+const origPopulateDropdowns = window.populateDropdowns;
+
+window.loadSchedule = function() { filterSchedule(); };
+
+window.filterSchedule = function() {
+  const teacher = document.getElementById('schedTeacherFilter')?.value || '';
+  const status = document.getElementById('schedStatusFilter')?.value || '';
+  const search = (document.getElementById('schedStudentSearch')?.value || '').toLowerCase();
+  let filtered = allLessons;
+  if (teacher) filtered = filtered.filter(l=>l.teacherName===teacher);
+  if (status) filtered = filtered.filter(l=>l.status===status);
+  if (search) filtered = filtered.filter(l=>(l.studentName||'').toLowerCase().includes(search));
+  renderSchedule(filtered);
+};
+
+window.adminApproveReschedule = async function(lessonId) {
+  try {
+    const snap = await getDoc(doc(db,'lessons',lessonId));
+    const lesson = snap.data();
+    await updateDoc(doc(db,'lessons',lessonId),{
+      date: lesson.requestedDate||lesson.date,
+      time: lesson.requestedTime||lesson.time,
+      status:'confirmed', rescheduleStatus:'approved', updatedAt:serverTimestamp()
+    });
+    await loadLessons();
+  } catch(e){alert('Error: '+e.message);}
+};
+
+window.adminRejectReschedule = async function(lessonId) {
+  try {
+    await updateDoc(doc(db,'lessons',lessonId),{
+      status:'confirmed', rescheduleStatus:'rejected', updatedAt:serverTimestamp()
+    });
+    await loadLessons();
+  } catch(e){alert('Error: '+e.message);}
+};
+
+window.cancelLesson = async function(lessonId) {
+  if(!confirm('Cancel this lesson?')) return;
+  await updateDoc(doc(db,'lessons',lessonId),{status:'cancelled',updatedAt:serverTimestamp()});
+  await loadLessons();
+};
+</script>
+</body>
+</html>
